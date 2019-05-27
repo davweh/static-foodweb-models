@@ -56,9 +56,6 @@ graph.nodes.forEach(function(d, i) {
     label.nodes.push({node: d});
     label.nodes.push({node: d});
     label.links.push({
-        // a total useless comment
-        // and another one
-        // ??
         source: i * 2,
         target: i * 2 + 1
     });
