@@ -58,6 +58,7 @@ graph.nodes.forEach(function(d, i) {
     label.links.push({
         // a total useless comment
         // and another one
+        // ??
         source: i * 2,
         target: i * 2 + 1
     });
