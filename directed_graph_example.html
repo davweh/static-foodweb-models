@@ -13,8 +13,49 @@
     var svg = d3.select("body").append("svg")
       .attr("width", 960)
       .attr("height", 500);
-    
-    var graph = {
+      var graph={
+    "nodes": [
+      {
+        "id": "n1",
+        "group": 1
+      },
+      {
+        "id": "n2",
+        "group": 1
+      },
+      {
+        "id": "n3",
+        "group": 1
+      },
+      {
+        "id": "n4",
+        "group": 1
+      }
+    ],
+    "links": [
+      {
+        "source": "n1",
+        "target": "n2",
+
+      },
+      {
+        "source": "n2",
+        "target": "n4",
+
+      },
+      {
+        "source": "n4",
+        "target": "n3",
+
+      },
+      {
+        "source": "n3",
+        "target": "n2",
+
+      }
+    ]
+  };
+   /* var graph = {
     "nodes": [
         {
             "id": "18362286",
@@ -170,7 +211,7 @@
             "reltype": "GENEALOGY"
         }
     ]
-};
+};*/
 
     var width = 960,
             height = 500;

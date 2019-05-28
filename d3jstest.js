@@ -45,25 +45,9 @@ var graph={
 
       }
     ]
-  }
+  };
 
-var label = {
-    'nodes': [],
-    'links': []
-};
 
-graph.nodes.forEach(function(d, i) {
-    label.nodes.push({node: d});
-    label.nodes.push({node: d});
-    label.links.push({
-        source: i * 2,
-        target: i * 2 + 1
-    });
-});
-
-var labelLayout = d3.forceSimulation(label.nodes)
-    .force("charge", d3.forceManyBody().strength(-50))
-    .force("link", d3.forceLink(label.links).distance(0).strength(2));
 
 var graphLayout = d3.forceSimulation(graph.nodes)
     .force("charge", d3.forceManyBody().strength(-3000))
@@ -95,7 +79,7 @@ svg.call(
 );
 container.append("defs").append("marker")
             .attr("id", "arrow")
-            .attr("viewBox", "0 -3 10 10")
+            .attr("viewBox", "-0 -5 10 10")
             .attr("refX", 20)
             .attr("refY", 0)
             .attr("markerWidth", 8)
@@ -107,10 +91,9 @@ container.append("defs").append("marker")
 var link = container.append("g").attr("class", "links")
     .selectAll("line")
     .data(graph.links)
-    .enter()
-    .append("line")
+    .enter().append("line")
     .attr("stroke", "#aaa")
-    .attr("marker-end","url(#arrowhead)");
+    .attr("marker-end","url(#arrow)");
    // .attr("stroke-width", "1px");
 
 
@@ -119,7 +102,7 @@ var node = container.append("g").attr("class", "nodes")
     .data(graph.nodes)
     .enter()
     .append("circle")
-    .attr("r", 5)
+    .attr("r", 8)
     .attr("fill", function(d) { return color(d.group); })
 
 
@@ -135,17 +118,6 @@ node.call(
  if (document.getElementById('check').checked) 
  {node.on("mouseover", focus).on("mouseout", unfocus);}
 
-var labelNode = container.append("g").attr("class", "labelNodes")
-    .selectAll("text")
-    .data(label.nodes)
-    .enter()
-    .append("text")
-    .text(function(d, i) { return i % 2 == 0 ? "" : ""; })
-    .style("fill", "#555")
-    .style("font-family", "Arial")
-    .style("font-size", 12)
-    .style("pointer-events", "none"); // to prevent mouseover/drag capture
-
 
 
     
@@ -158,26 +130,7 @@ function ticked() {
     node.call(updateNode);
     link.call(updateLink);
 
-    labelLayout.alphaTarget(0.3).restart();
-    labelNode.each(function(d, i) {
-        if(i % 2 == 0) {
-            d.x = d.node.x;
-            d.y = d.node.y;
-        } else {
-            var b = this.getBBox();
 
-            var diffX = d.x - d.node.x;
-            var diffY = d.y - d.node.y;
-
-            var dist = Math.sqrt(diffX * diffX + diffY * diffY);
-
-            var shiftX = b.width * (diffX - dist) / (dist * 2);
-            shiftX = Math.max(-b.width, Math.min(0, shiftX));
-            var shiftY = 16;
-            this.setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
-        }
-    });
-    labelNode.call(updateNode);
 
 }
 
@@ -191,16 +144,15 @@ function focus(d) {
     node.style("opacity", function(o) {
         return neigh(index, o.index) ? 1 : 0.1;
     });
-    labelNode.attr("display", function(o) {
-      return neigh(index, o.node.index) ? "block": "none";
-    });
+
     link.style("opacity", function(o) {
         return o.source.index == index || o.target.index == index ? 1 : 0.1;
     });
+    
 }
 
 function unfocus() {
-   labelNode.attr("display", "block");
+ 
    node.style("opacity", 1);
    link.style("opacity", 1);
 }
