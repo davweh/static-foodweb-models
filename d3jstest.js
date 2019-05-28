@@ -61,7 +61,7 @@ var adjlist = [];
 
 graph.links.forEach(function(d) {
     adjlist[d.source.index + "-" + d.target.index] = true;
-   // adjlist[d.target.index + "-" + d.source.index] = true;
+    adjlist[d.target.index + "-" + d.source.index] = true;
 });
 
 function neigh(a, b) {
@@ -148,7 +148,7 @@ function focus(d) {
     link.style("opacity", function(o) {
         return o.source.index == index || o.target.index == index ? 1 : 0.1;
     });
-    
+
 }
 
 function unfocus() {
@@ -187,5 +187,3 @@ function dragended(d) {
     d.fx = null;
     d.fy = null;
 }
-
-//}); // d3.json 
