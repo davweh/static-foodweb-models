@@ -11,23 +11,16 @@
         <input type="button" id="submitButton"/>
     </body>
     <script type="text/javascript">
-    var MYLIBRARY = MYLIBRARY || (function(){
-    var _args = {}; // private
+    
 
-    return {
-        init : function(Args) {
-            _args = Args;
-            // some other initialising
-        },
-        helloWorld : function() {
-            console.log('Hello World! -' + _args[0]);
-        }
-    };
-}());
     </script>
-    <script type="text/javascript">
-       MYLIBRARY.init(document.getElementById("inputfieldSpecies").value);
-       MYLIBRARY.helloWorld();
-    </script>
+<script>
+function printinConsole(){
+    var numberOfSpecies=document.getElementById("inputfieldSpecies").value;
+    console.log(numberOfSpecies);
+    return false;
+}
+document.getElementById("submitButton").setAttribute("onclick","printinConsole();")
+</script>
 
 </html>
