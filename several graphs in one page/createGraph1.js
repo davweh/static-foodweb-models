@@ -66,12 +66,14 @@ container1.append("defs").append("marker")
             .attr("d", "M0,-5L10,0L0,5");  
 
 var link1 = container1.append("g").attr("class", "link")
-    .selectAll("link")
+    .selectAll(".link")
     .data(graph.links)
-    .enter().append("line")
-    .attr("stroke", "#aaa");
-    // .attr('marker-end', function(d) {
-    //     return d.source == d.target ? 'url(#arrow)' : 'url(#arrow)'
+    .enter().append("path")
+    .attr("stroke", function(d){
+        return "#ddd";
+    })
+    .attr('marker-end','url(#arrow)');//function(d) {
+      //  return d.source == d.target ? 'url(#arrow)' : 'url(#arrow)'
     //   });
    // .attr("marker-end","url(#arrow)");
    // .attr("stroke-width", "1px");
@@ -83,7 +85,9 @@ var node1 = container1.append("g").attr("class", "nodes")
     .enter()
     .append("circle")
     .attr("r", 8)
-    .attr("fill", "#009900")
+    .attr("fill", function(d){
+        if (d.id=="n1"){ return "#ff0000";} 
+        else{ return "#009900";}});
 
 
 
@@ -131,10 +135,30 @@ function unfocus1() {
 }
 
 function updateLink1(link) {
-    link.attr("x1", function(d) { return fixna1(d.source.x); })
-        .attr("y1", function(d) { return fixna1(d.source.y); })
-        .attr("x2", function(d) { return fixna1(d.target.x); })
-        .attr("y2", function(d) { return fixna1(d.target.y); });
+//     link.attr("x1", function(d) { return fixna1(d.source.x); })
+//         .attr("y1", function(d) { return fixna1(d.source.y); })
+//         .attr("x2", function(d) { return fixna1(d.target.x); })
+//         .attr("y2", function(d) { return fixna1(d.target.y); });
+link.attr("d", positionLink);
+ }
+
+function positionLink(d) {
+    var offset = 1;
+
+    var midpoint_x = (d.source.x + d.target.x) / 2;
+    var midpoint_y = (d.source.y + d.target.y) / 2;
+
+    var dx = (d.target.x - d.source.x);
+    var dy = (d.target.y - d.source.y);
+
+    var normalise = Math.sqrt((dx * dx) + (dy * dy));
+
+    var offSetX = midpoint_x + offset*(dy/normalise);
+    var offSetY = midpoint_y - offset*(dx/normalise);
+
+    return "M" + d.source.x + "," + d.source.y +
+        "S" + offSetX + "," + offSetY +
+        " " + d.target.x + "," + d.target.y;
 }
 
 function updateNode1(node) {

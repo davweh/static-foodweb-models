@@ -15,6 +15,7 @@ var graph={
 for (var i=1;i<=numSpecies;i++){
     graph.nodes.push({"id":"n"+i})
 }
+graph.links.push({"source":"n1","target":"n1"});
 var numOfLinksInGraph=0;
 while (numOfLinksInGraph<numLinks){
     let randomNode1="n"+(getRandomInt(numSpecies)+1);
