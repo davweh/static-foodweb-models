@@ -31,7 +31,7 @@ var graphLayout1 = d3.forceSimulation(graph.nodes)
     .force("center", d3.forceCenter(width1 / 2, height1 / 2))
     .force("x", d3.forceX(width1 / 2).strength(1))
     .force("y", d3.forceY(height1 / 2).strength(1))
-    .force("link", d3.forceLink(graph.links).id(function(d) {return d.id; }).distance(50).strength(1))
+    .force("path", d3.forceLink(graph.links).id(function(d) {return d.id; }).distance(50).strength(1))
     .on("tick", ticked1);
 
 var adjlist1 = [];
@@ -56,25 +56,40 @@ svg1.call(
 );
 container1.append("defs").append("marker")
             .attr("id", "arrow")
-            .attr("viewBox", "-0 -5 10 10")
+            .attr("viewBox", "0 -5 10 10")
             .attr("refX", 20)
             .attr("refY", 0)
             .attr("markerWidth", 8)
             .attr("markerHeight", 8)
             .attr("orient", "auto")
-            .append("svg:path")
+            .append("path")
+            .attr("fill","#585858")
+            .attr("d", "M0,-5L10,0L0,5");  
+container1.append("defs").append("marker")
+            .attr("id", "curvedArrow")
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 10)
+            .attr("refY", -3)
+            .attr("markerWidth", 8)
+            .attr("markerHeight", 8)
+            //.attr("orient")
+            .append("path")
+            .attr("fill","#585858")
             .attr("d", "M0,-5L10,0L0,5");  
 
-var link1 = container1.append("g").attr("class", "link")
-    .selectAll(".link")
+var link1 = container1.append("g")
+    .selectAll("path")
     .data(graph.links)
     .enter().append("path")
-    .attr("stroke", function(d){
-        return "#ddd";
-    })
-    .attr('marker-end','url(#arrow)');//function(d) {
-      //  return d.source == d.target ? 'url(#arrow)' : 'url(#arrow)'
-    //   });
+    .attr("class", "path")
+    // .attr("stroke", function(d){
+    //     return "#ddd";
+    // })
+    .attr("stroke","#888888")
+    //.attr("stroke-width", "1px")
+    .attr('marker-end',function(d) {
+       return d.source == d.target ? 'url(#curvedArrow)' : 'url(#arrow)'
+       });
    // .attr("marker-end","url(#arrow)");
    // .attr("stroke-width", "1px");
 
@@ -86,8 +101,8 @@ var node1 = container1.append("g").attr("class", "nodes")
     .append("circle")
     .attr("r", 8)
     .attr("fill", function(d){
-        if (d.id=="n1"){ return "#ff0000";} 
-        else{ return "#009900";}});
+       if (d.id==="n1"){ return "#ff0000";} 
+       else{ return "#009900";}});
 
 
 
@@ -134,32 +149,77 @@ function unfocus1() {
    link1.style("opacity", 1);
 }
 
-function updateLink1(link) {
-//     link.attr("x1", function(d) { return fixna1(d.source.x); })
-//         .attr("y1", function(d) { return fixna1(d.source.y); })
-//         .attr("x2", function(d) { return fixna1(d.target.x); })
-//         .attr("y2", function(d) { return fixna1(d.target.y); });
-link.attr("d", positionLink);
- }
+function updateLink1(link1) {
+    // link.attr("x1", function(d) { return fixna1(d.source.x); })
+    //     .attr("y1", function(d) { return fixna1(d.source.y); })
+    //     .attr("x2", function(d) { return fixna1(d.target.x); })
+    //     .attr("y2", function(d) { return fixna1(d.target.y); });
+//link.attr("d", positionLink);
+    link1.attr("d", function(d) {
+        var x1 = fixna1(d.source.x),
+            y1 = fixna1(d.source.y),
+            x2 = fixna1(d.target.x),
+            y2 = fixna1(d.target.y),
+            dx = x2 - x1,
+            dy = y2 - y1,
+            dr = Math.sqrt(dx * dx + dy * dy),
 
-function positionLink(d) {
-    var offset = 1;
+            // Defaults for normal edge.
+            drx = 0,
+            dry = 0,
+            xRotation = 0, // degrees
+            largeArc = 0, // 1 or 0
+            sweep = 0; // 1 or 0
 
-    var midpoint_x = (d.source.x + d.target.x) / 2;
-    var midpoint_y = (d.source.y + d.target.y) / 2;
+            // Self edge.
+            if ( x1 === x2 && y1 === y2 ) {
+            // Fiddle with this angle to get loop oriented.
+            xRotation = -140;
 
-    var dx = (d.target.x - d.source.x);
-    var dy = (d.target.y - d.source.y);
+            // Needs to be 1.
+            largeArc = 1;
 
-    var normalise = Math.sqrt((dx * dx) + (dy * dy));
+            // Change sweep to change orientation of loop. 
+            //sweep = 0;
 
-    var offSetX = midpoint_x + offset*(dy/normalise);
-    var offSetY = midpoint_y - offset*(dx/normalise);
+            // Make drx and dry different to get an ellipse
+            // instead of a circle.
+            drx = 12;
+            dry = 12;
+            
+            // For whatever reason the arc collapses to a point if the beginning
+            // and ending points of the arc are the same, so kludge it.
+            x2 = x2 - 3;
+            y2 = y2 + 5;
+            } 
 
-    return "M" + d.source.x + "," + d.source.y +
-        "S" + offSetX + "," + offSetY +
-        " " + d.target.x + "," + d.target.y;
-}
+    return "M" + x1 + "," + y1 +
+    "A" + drx + "," + dry + " " + xRotation + "," + largeArc + "," + sweep +
+    " " + x2 + "," + y2 ;
+    });
+
+    link1.attr("fill","transparent");
+   
+    }
+
+// function positionLink(d) {
+//     var offset = 1;
+
+//     var midpoint_x = (d.source.x + d.target.x) / 2;
+//     var midpoint_y = (d.source.y + d.target.y) / 2;
+
+//     var dx = (d.target.x - d.source.x);
+//     var dy = (d.target.y - d.source.y);
+
+//     var normalise = Math.sqrt((dx * dx) + (dy * dy));
+
+//     var offSetX = midpoint_x + offset*(dy/normalise);
+//     var offSetY = midpoint_y - offset*(dx/normalise);
+
+//     return "M" + d.source.x + "," + d.source.y +
+//         "S" + offSetX + "," + offSetY +
+//         " " + d.target.x + "," + d.target.y;
+// }
 
 function updateNode1(node) {
     node.attr("transform", function(d) {
