@@ -1,0 +1,77 @@
+<html>
+    <meta charset="UTF-8"> 
+    <head>
+        <style> 
+        /*=====================CSS styles==========================*/
+        .checkBox { 
+            background-color: lightgray; 
+            border: 2px solid black; 
+            color: black; 
+            padding: 5px 10px; 
+            text-align: center; 
+            display: inline-block; 
+            font-size: 20px; 
+            margin: 10px 10px; 
+            cursor: pointer; 
+        } 
+        .svgframes{
+            border: 1px solid black
+        }
+    </style> 
+    </head>
+
+
+    <body>
+        <title>Struktur von Nahrungsnetzen</title>
+        <br>Struktur von Nahrungsnetzen</br>
+    <!--=====================body==========================-->
+    <!-- svg_windows -->
+        <svg id='viz1' class="svgframes" ></svg>
+        <svg id='viz2' class="svgframes" ></svg>
+        <svg id='viz3' class="svgframes" ></svg>
+    <!-- buttons and stuff -->
+        <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction();"/>Focus</label>
+        <form action="/action_page.php">
+                Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"><br>
+                Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"><br>
+        </form>
+        <input type="button" id="submitButton" onclick="recalculate();reloadScriptFunction();"/>
+
+
+
+    </body>
+
+
+
+    <!--=====================scripts==========================-->
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <script src='calcGraphs.js'></script>
+    <script>
+        function reloadsvg(id) {
+            var bodyparent= document.body; 
+            oldsvg=document.getElementById(id);
+            var newsvg=document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            newsvg.setAttributeNS(null,"id",id);
+            newsvg.setAttributeNS(null,"class","svgframes");
+            bodyparent.replaceChild(newsvg,oldsvg);
+
+        }
+        function reloadScriptFunction() {
+            reloadsvg("viz1");
+            reloadsvg("viz2");
+            reloadsvg("viz3");
+            drawgraph(graph1,"#viz1");
+            drawgraph(graph2,"#viz2");
+            drawgraph(graph3,"#viz3");
+        }
+        function recalculate(){
+            graphs=calcGraphs(
+                document.getElementById("inputfieldSpecies").value,
+                document.getElementById("inputfieldLinkNum").value);
+            graph1=graphs[0];
+            graph2=graphs[1];
+            graph3=graphs[2];
+        }
+    </script>
+    <script src='drawGraphs.js'></script>
+</html>
