@@ -200,9 +200,12 @@ function drawgraph(graph,svgid){
         .enter()
         .append("circle")
         .attr("r", 8)
-        .attr("fill","#009900"); //function(d){
-        // if (d.id==="n1"){ return "#ff0000";} 
-        // else{ return "#009900";}}
+        .attr("fill",function(d){
+         if (d.group==="top"){ return "#990000";} //red
+         if (d.group==="basal"){ return "#245af6";} //blue
+         if (d.group==="intermediate"){ return "#009900";}//green
+         if (d.group==="notConnected"){ return "#000000";}//black
+         });
 
 
 

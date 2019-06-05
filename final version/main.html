@@ -4,7 +4,7 @@
         <style> 
         /*=====================CSS styles==========================*/
         .checkBox { 
-            background-color: lightgray; 
+            background-color: #f0f0f0;
             border: 2px solid black; 
             color: black; 
             padding: 5px 10px; 
@@ -14,29 +14,195 @@
             margin: 10px 10px; 
             cursor: pointer; 
         } 
+        .checkBox:hover {background-color: #088208;}
         .svgframes{
             border: 1px solid black
+        }
+        .button { 
+            background-color: #f0f0f0; 
+            border: 2px solid black; 
+            color: black; 
+            padding: 5px 10px; 
+            text-align: center; 
+            display: inline-block; 
+            font-size: 20px; 
+            margin: 10px 10px; 
+            cursor: pointer; 
+            border-radius: 8px;
+        } 
+        .button:hover {background-color: #088208;}
+
+        .button:active {
+        background-color:#088208;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+        }
+        .svglabel {
+            font-size: 20px;
+            position:absolute;
+            top: 125px;
+
+        }
+        .body {
+             background-color: white;
+        }
+        .table{
+            position: absolute;
+            left: 400px;
+            top: 580px; 
+            border: 2px solid black; 
+            border-collapse: collapse;
+        }
+        .tableEntries{
+            border-right: 2px solid black; 
+        }
+        .tableLabel{
+            font-size: 20px;
+            position:absolute;
+            left: 410px;
+            top: 550px; 
+        }
+        th, td {
+            padding: 10px;
         }
     </style> 
     </head>
 
 
-    <body>
+    <body class="body">
+        <!--=====================body==========================-->
+
         <title>Struktur von Nahrungsnetzen</title>
-        <br>Struktur von Nahrungsnetzen</br>
-    <!--=====================body==========================-->
+        <h1 style="font-size:30px; font-weight: bold;">Statische Modelle von Nahrungsnetzen</h1> von David Huber
+        <hr style="margin-right:auto "/>
+        <br></br>
     <!-- svg_windows -->
+        <label class="svglabel" style="left:20px">Zufälliges Netzwerk</label>
+        <label class="svglabel" style="left:375px">Kaskadenmodell</label>
+        <label class="svglabel" style="left:740px">Nischenmodell(not done yet)</label>
         <svg id='viz1' class="svgframes" ></svg>
         <svg id='viz2' class="svgframes" ></svg>
         <svg id='viz3' class="svgframes" ></svg>
     <!-- buttons and stuff -->
+    <br></br>
         <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction();"/>Focus</label>
+        <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcFinalGraphs();reloadScriptFunction();displayInTable();"/>Connected</label>
+       
         <form action="/action_page.php">
                 Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"><br>
                 Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"><br>
         </form>
-        <input type="button" id="submitButton" onclick="recalculate();reloadScriptFunction();"/>
-
+        <!-- <label  for="submitButton">Reload:
+            <button class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();"/>
+        </label> -->
+        <button type="button" class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();displayInTable();">
+                <label>Reload</label>
+        </button>
+        <label class="tableLabel" >Zufällig</label>
+        <label class="tableLabel"style="left: 600px">Kaskadenmodell</label>
+        <label class="tableLabel" style="left: 800px">Nischenmodell</label>
+        <table class="table" id="randomNetWorkTable">
+            <tr>
+                <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
+                <th style="border-bottom: 2px solid black;">Wert</th>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="spec">Spezies</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="link">Links</td>
+                <td>0</td>
+            </tr>  
+            <tr>
+                <td class="tableEntries" id="connec">Connectance</td>
+                <td>0</td>
+            </tr>                          
+            <tr>
+                <td class="tableEntries" id="topPercentage">Top</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="intermPercentage">Interm.</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="basalPercentage">Basal</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries">Basal</td>
+                <td>0</td>
+            </tr>
+        </table> 
+        <table class="table" id="CascadeTable" style="left: 600px">
+            <tr>
+                <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
+                <th style="border-bottom: 2px solid black;">Wert</th>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="spec">Spezies</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="link">Links</td>
+                <td>0</td>
+            </tr>  
+            <tr>
+                <td class="tableEntries" id="connec">Connectance</td>
+                <td>0</td>
+            </tr>                          
+            <tr>
+                <td class="tableEntries" id="topPercentage">Top</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="intermPercentage">Interm.</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="basalPercentage">Basal</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries">Basal</td>
+                <td>0</td>
+            </tr>
+        </table>
+        <table class="table" id="NicheTable" style="left: 800px">
+            <tr>
+                <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
+                <th style="border-bottom: 2px solid black;">Wert</th>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="spec">Spezies</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="link">Links</td>
+                <td>0</td>
+            </tr>  
+            <tr>
+                <td class="tableEntries" id="connec">Connectance</td>
+                <td>0</td>
+            </tr>                          
+            <tr>
+                <td class="tableEntries" id="topPercentage">Top</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="intermPercentage">Interm.</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries" id="basalPercentage">Basal</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="tableEntries">Basal</td>
+                <td>0</td>
+            </tr>
+        </table> 
 
 
     </body>
@@ -46,6 +212,7 @@
     <!--=====================scripts==========================-->
     <script src='https://d3js.org/d3.v5.min.js'></script>
     <script src='calcGraphs.js'></script>
+    <script src='calcProperties.js'></script>
     <script>
         function reloadsvg(id) {
             var bodyparent= document.body; 
@@ -63,14 +230,6 @@
             drawgraph(graph1,"#viz1");
             drawgraph(graph2,"#viz2");
             drawgraph(graph3,"#viz3");
-        }
-        function recalculate(){
-            graphs=calcGraphs(
-                document.getElementById("inputfieldSpecies").value,
-                document.getElementById("inputfieldLinkNum").value);
-            graph1=graphs[0];
-            graph2=graphs[1];
-            graph3=graphs[2];
         }
     </script>
     <script src='drawGraphs.js'></script>
