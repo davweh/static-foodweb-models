@@ -84,96 +84,96 @@ function isConnected(graph){
     }
     return true;
 }
-testgraph1NotConn={
-    "nodes": [
-      {
-        "id": "n1",
-        "group": 1
-      },
-      {
-        "id": "n2",
-        "group": 1
-      },
-      {
-        "id": "n3",
-        "group": 1
-      },
-      {
-        "id": "n4",
-        "group": 1
-      }
-    ],
-    "links": [
-      {
-        "source": "n1",
-        "target": "n2",
+// testgraph1NotConn={
+//     "nodes": [
+//       {
+//         "id": "n1",
+//         "group": 1
+//       },
+//       {
+//         "id": "n2",
+//         "group": 1
+//       },
+//       {
+//         "id": "n3",
+//         "group": 1
+//       },
+//       {
+//         "id": "n4",
+//         "group": 1
+//       }
+//     ],
+//     "links": [
+//       {
+//         "source": "n1",
+//         "target": "n2",
 
-      },
-      {
-        "source": "n2",
-        "target": "n3",
+//       },
+//       {
+//         "source": "n2",
+//         "target": "n3",
 
-      },
-      {
-        "source": "n3",
-        "target": "n3",
+//       },
+//       {
+//         "source": "n3",
+//         "target": "n3",
 
-      },
-      {
-        "source": "n3",
-        "target": "n2",
+//       },
+//       {
+//         "source": "n3",
+//         "target": "n2",
 
-      }
-    ]
-  };
-testgraph1Conn={
-    "nodes": [
-      {
-        "id": "n1",
-        "group": 1
-      },
-      {
-        "id": "n2",
-        "group": 1
-      },
-      {
-        "id": "n3",
-        "group": 1
-      },
-      {
-        "id": "n4",
-        "group": 1
-      }
-    ],
-    "links": [
-      {
-        "source": "n1",
-        "target": "n2",
+//       }
+//     ]
+//   };
+// testgraph1Conn={
+//     "nodes": [
+//       {
+//         "id": "n1",
+//         "group": 1
+//       },
+//       {
+//         "id": "n2",
+//         "group": 1
+//       },
+//       {
+//         "id": "n3",
+//         "group": 1
+//       },
+//       {
+//         "id": "n4",
+//         "group": 1
+//       }
+//     ],
+//     "links": [
+//       {
+//         "source": "n1",
+//         "target": "n2",
 
-      },
-      {
-        "source": "n2",
-        "target": "n3",
+//       },
+//       {
+//         "source": "n2",
+//         "target": "n3",
 
-      },
-      {
-        "source": "n3",
-        "target": "n4",
+//       },
+//       {
+//         "source": "n3",
+//         "target": "n4",
 
-      },
-      {
-        "source": "n3",
-        "target": "n2",
+//       },
+//       {
+//         "source": "n3",
+//         "target": "n2",
 
-      }
-    ]
-  };
+//       }
+//     ]
+//   };
 // console.log(getSourcAndTarg(testgraph1NotConn));
 // console.log(contains(getSourcAndTarg(testgraph1NotConn),testgraph1NotConn.nodes[3].id));
 // console.log(isConnected(testgraph1NotConn));
 // console.log(isConnected(testgraph1Conn));
 
-
+/**/
 // ===================Random Network==============================
 function calcGraphRandom(numSpecies,numLinks){
     var connec=numLinks/(numSpecies*numSpecies);
@@ -261,6 +261,37 @@ function calcGraphNiche(numSpecies,numLinks){
 
     return graph3temp;
 }
+// function calcGraphNiche(numSpecies,numLinks){
+//     var graph3temp={
+//         "nodes":[],
+//         "links":[],
+//     };
+//     for (var i=1;i<=numSpecies;i++){
+//         graph3temp.nodes.push({"id":"n"+i,"group":"intermediate"})
+//     }
+
+//     var numOfLinksInGraph=0;
+//     while (numOfLinksInGraph<numLinks){
+//         let randomNode1="n"+(getRandomInt(numSpecies)+1);
+//         let randomNode2="n"+(getRandomInt(numSpecies)+1);
+//         if (Math.random()<=connec   && containsObject(graph3temp.links,{"source":randomNode1,"target":randomNode2})==false) {
+//             graph3temp.links.push({"source":randomNode1,"target":randomNode2});
+//             numOfLinksInGraph++;
+//         } 
+        
+//     }
+    
+    
+    
+    
+    
+    
+//     calcGroups(graph3temp);
+
+//     return graph3temp;
+// }
+
+
 
 var graph1,graph2,graph3;
 function calcFinalGraphs() {

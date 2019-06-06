@@ -80,13 +80,20 @@
         <label class="svglabel" style="left:20px">Zufälliges Netzwerk</label>
         <label class="svglabel" style="left:375px">Kaskadenmodell</label>
         <label class="svglabel" style="left:740px">Nischenmodell(not done yet)</label>
+        <table style="position: absolute; left:1100px; top:150px;">
+            <tr><th>Legende:</th></tr>
+            <tr><td style="color: #990000">Top</td></tr>
+            <tr><td style="color: #009900">Intermediate</td></tr>
+            <tr><td style="color: #245af6">Basal</td></tr>    
+            <tr><td style="color: #000000">nicht verbunden</td></tr>       
+        </table>
         <svg id='viz1' class="svgframes" ></svg>
         <svg id='viz2' class="svgframes" ></svg>
         <svg id='viz3' class="svgframes" ></svg>
     <!-- buttons and stuff -->
     <br></br>
         <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction();"/>Focus</label>
-        <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcFinalGraphs();reloadScriptFunction();displayInTable();"/>Connected</label>
+        <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcFinalGraphs();reloadScriptFunction();displayTables();"/>Connected</label>
        
         <form action="/action_page.php">
                 Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"><br>
@@ -95,7 +102,7 @@
         <!-- <label  for="submitButton">Reload:
             <button class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();"/>
         </label> -->
-        <button type="button" class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();displayInTable();">
+        <button type="button" class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();displayTables();">
                 <label>Reload</label>
         </button>
         <label class="tableLabel" >Zufällig</label>
@@ -107,32 +114,28 @@
                 <th style="border-bottom: 2px solid black;">Wert</th>
             </tr>
             <tr>
-                <td class="tableEntries" id="spec">Spezies</td>
-                <td>0</td>
+                <td class="tableEntries">Spezies</td>
+                <td id="randomspec">0</td>
             </tr>
             <tr>
-                <td class="tableEntries" id="link">Links</td>
-                <td>0</td>
+                <td class="tableEntries">Links</td>
+                <td id="randomlink">0</td>
             </tr>  
             <tr>
-                <td class="tableEntries" id="connec">Connectance</td>
-                <td>0</td>
+                <td class="tableEntries">Connectance</td>
+                <td  id="randomconnec">0</td>
             </tr>                          
             <tr>
-                <td class="tableEntries" id="topPercentage">Top</td>
-                <td>0</td>
+                <td class="tableEntries">Top</td>
+                <td id="randomtopPercentage">0</td>
             </tr>
             <tr>
-                <td class="tableEntries" id="intermPercentage">Interm.</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries" id="basalPercentage">Basal</td>
-                <td>0</td>
+                <td class="tableEntries">Interm.</td>
+                <td id="randomintermPercentage"> 0</td>
             </tr>
             <tr>
                 <td class="tableEntries">Basal</td>
-                <td>0</td>
+                <td id="randombasalPercentage">0</td>
             </tr>
         </table> 
         <table class="table" id="CascadeTable" style="left: 600px">
@@ -141,32 +144,28 @@
                 <th style="border-bottom: 2px solid black;">Wert</th>
             </tr>
             <tr>
-                <td class="tableEntries" id="spec">Spezies</td>
-                <td>0</td>
+                <td class="tableEntries">Spezies</td>
+                <td id="cascadespec">0</td>
             </tr>
             <tr>
-                <td class="tableEntries" id="link">Links</td>
-                <td>0</td>
+                <td class="tableEntries">Links</td>
+                <td id="cascadelink">0</td>
             </tr>  
             <tr>
-                <td class="tableEntries" id="connec">Connectance</td>
-                <td>0</td>
+                <td class="tableEntries">Connectance</td>
+                <td  id="cascadeconnec">0</td>
             </tr>                          
             <tr>
-                <td class="tableEntries" id="topPercentage">Top</td>
-                <td>0</td>
+                <td class="tableEntries">Top</td>
+                <td id="cascadetopPercentage">0</td>
             </tr>
             <tr>
-                <td class="tableEntries" id="intermPercentage">Interm.</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries" id="basalPercentage">Basal</td>
-                <td>0</td>
+                <td class="tableEntries">Interm.</td>
+                <td id="cascadeintermPercentage"> 0</td>
             </tr>
             <tr>
                 <td class="tableEntries">Basal</td>
-                <td>0</td>
+                <td id="cascadebasalPercentage">0</td>
             </tr>
         </table>
         <table class="table" id="NicheTable" style="left: 800px">
@@ -175,32 +174,28 @@
                 <th style="border-bottom: 2px solid black;">Wert</th>
             </tr>
             <tr>
-                <td class="tableEntries" id="spec">Spezies</td>
-                <td>0</td>
+                <td class="tableEntries">Spezies</td>
+                <td id="nichespec">0</td>
             </tr>
             <tr>
-                <td class="tableEntries" id="link">Links</td>
-                <td>0</td>
+                <td class="tableEntries">Links</td>
+                <td id="nichelink">0</td>
             </tr>  
             <tr>
-                <td class="tableEntries" id="connec">Connectance</td>
-                <td>0</td>
+                <td class="tableEntries">Connectance</td>
+                <td  id="nicheconnec">0</td>
             </tr>                          
             <tr>
-                <td class="tableEntries" id="topPercentage">Top</td>
-                <td>0</td>
+                <td class="tableEntries">Top</td>
+                <td id="nichetopPercentage">0</td>
             </tr>
             <tr>
-                <td class="tableEntries" id="intermPercentage">Interm.</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries" id="basalPercentage">Basal</td>
-                <td>0</td>
+                <td class="tableEntries">Interm.</td>
+                <td id="nicheintermPercentage"> 0</td>
             </tr>
             <tr>
                 <td class="tableEntries">Basal</td>
-                <td>0</td>
+                <td id="nichebasalPercentage">0</td>
             </tr>
         </table> 
 

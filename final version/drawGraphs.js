@@ -2,132 +2,6 @@
 var width =350;
 var height = 350;
 
-// var graph1={
-//     "nodes": [
-//       {
-//         "id": "n1",
-//         "group": 1
-//       },
-//       {
-//         "id": "n2",
-//         "group": 1
-//       },
-//       {
-//         "id": "n3",
-//         "group": 1
-//       },
-//       {
-//         "id": "n4",
-//         "group": 1
-//       }
-//     ],
-//     "links": [
-//       {
-//         "source": "n1",
-//         "target": "n2",
-
-//       },
-//       {
-//         "source": "n2",
-//         "target": "n3",
-
-//       },
-//       {
-//         "source": "n3",
-//         "target": "n4",
-
-//       },
-//       {
-//         "source": "n4",
-//         "target": "n1",
-
-//       }
-//     ]
-//   };
-// var graph2={
-//     "nodes": [
-//       {
-//         "id": "n1",
-//         "group": 1
-//       },
-//       {
-//         "id": "n2",
-//         "group": 1
-//       },
-//       {
-//         "id": "n3",
-//         "group": 1
-//       },
-//       {
-//         "id": "n4",
-//         "group": 1
-//       }
-//     ],
-//     "links": [
-//       {
-//         "source": "n1",
-//         "target": "n2",
-
-//       },
-//       {
-//         "source": "n2",
-//         "target": "n4",
-
-//       },
-//       {
-//         "source": "n4",
-//         "target": "n3",
-
-//       },
-//       {
-//         "source": "n3",
-//         "target": "n2",
-
-//       }
-//     ]
-//   };
-// var graph3={
-//     "nodes": [
-//       {
-//         "id": "n1",
-//         "group": 1
-//       },
-//       {
-//         "id": "n2",
-//         "group": 1
-//       },
-//       {
-//         "id": "n3",
-//         "group": 1
-//       },
-//       {
-//         "id": "n4",
-//         "group": 1
-//       }
-//     ],
-//     "links": [
-//       {
-//         "source": "n1",
-//         "target": "n2",
-
-//       },
-//       {
-//         "source": "n2",
-//         "target": "n4",
-
-//       },
-//       {
-//         "source": "n4",
-//         "target": "n3",
-
-//       },
-//       {
-//         "source": "n3",
-//         "target": "n2",
-
-//       }
-//     ]
-//   };
 
 function drawgraph(graph,svgid){
     var graphLayout = d3.forceSimulation(graph.nodes)
@@ -172,11 +46,11 @@ function drawgraph(graph,svgid){
     container.append("defs").append("marker")
                 .attr("id", "curvedArrow")
                 .attr("viewBox", "0 -5 10 10")
-                .attr("refX", 10)
-                .attr("refY", -3)
+                .attr("refX", 12)
+                .attr("refY", -1)
                 .attr("markerWidth", 8)
                 .attr("markerHeight", 8)
-                .attr("orient", "auto")
+                .attr("orient", "-20")
                 .append("path")
                 .attr("fill","#585858")
                 .attr("d", "M0,-5L10,0L0,5");  
@@ -268,7 +142,7 @@ function drawgraph(graph,svgid){
                 // Self edge.
                 if ( x1 === x2 && y1 === y2 ) {
                 // Fiddle with this angle to get loop oriented.
-                xRotation = -140;
+                xRotation = -45;
 
                 // Needs to be 1.
                 largeArc = 1;
