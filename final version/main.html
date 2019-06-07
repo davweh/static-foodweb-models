@@ -48,8 +48,8 @@
         }
         .table{
             position: absolute;
-            left: 400px;
-            top: 580px; 
+            left: 500px;
+            top: 650px; 
             border: 2px solid black; 
             border-collapse: collapse;
         }
@@ -59,11 +59,17 @@
         .tableLabel{
             font-size: 20px;
             position:absolute;
-            left: 410px;
-            top: 550px; 
+            left: 510px;
+            top: 620px; 
         }
         th, td {
             padding: 10px;
+        }
+        .exampleTable {
+            position: absolute;
+            top: 30px; 
+            border: 2px solid black; 
+            border-collapse: collapse;
         }
     </style> 
     </head>
@@ -81,128 +87,161 @@
         <label class="svglabel" style="left:375px">Kaskadenmodell</label>
         <label class="svglabel" style="left:740px">Nischenmodell(not done yet)</label>
         <table style="position: absolute; left:1100px; top:150px;">
-            <tr><th>Legende:</th></tr>
-            <tr><td style="color: #990000">Top</td></tr>
-            <tr><td style="color: #009900">Intermediate</td></tr>
-            <tr><td style="color: #245af6">Basal</td></tr>    
-            <tr><td style="color: #000000">nicht verbunden</td></tr>       
+            <tr><td style="color: #990000; font-weight: bold;">Top</td></tr>
+            <tr><td style="color: #009900; font-weight: bold;">Intermediate</td></tr>
+            <tr><td style="color: #245af6; font-weight: bold;">Basal</td></tr>    
+            <tr><td style="color: #000000; font-weight: bold;">nicht verbunden</td></tr>       
         </table>
+        <button type="button" class="button" id="submitButton" onclick="emptyWindows()"
+        style="position: absolute; left:1100px; top:320px;" >
+            <label>Clear Windows</label>
+        </button>
         <svg id='viz1' class="svgframes" ></svg>
         <svg id='viz2' class="svgframes" ></svg>
         <svg id='viz3' class="svgframes" ></svg>
     <!-- buttons and stuff -->
     <br></br>
+        <label class="checkBox"><input type="checkbox" id="checkdraw" checked="true" />Draw</label>
         <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction();"/>Focus</label>
         <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcFinalGraphs();reloadScriptFunction();displayTables();"/>Connected</label>
-       
+        
+        
+        <button type="button" class="button" id="SkipwithPond" onclick="examplebuttonFkt('Skipwith Pond' ,25,198,0.04,0.92,0.04);"
+        style="position: relative; left: 50px;">
+            <label>Skipwith Pond</label>
+        </button>
+        <button type="button" class="button" id="BridgeBrookLake" onclick="examplebuttonFkt('Bridge Brook Lake' ,25,108,0,0.68,0.32);"
+        style="position: relative; left: 50px;">
+            <label>Bridge Brook Lake</label>
+        </button>
+        <button type="button" class="button" id="LittleRockLake" onclick="examplebuttonFkt('Little Rock Lake' ,92,994,0.01,0.86,0.13);"
+        style="position: relative; left: 50px;">
+            <label>Little Rock Lake</label>
+        </button>
+        <button type="button" class="button" id="clearExample" onclick="clearExample();"
+        style="position: relative; left: 50px;">
+            <label>Clear Table</label>
+        </button>
+
+
         <form action="/action_page.php">
                 Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"><br>
                 Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"><br>
         </form>
-        <!-- <label  for="submitButton">Reload:
-            <button class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();"/>
-        </label> -->
-        <button type="button" class="button" id="submitButton" onclick="calcFinalGraphs();reloadScriptFunction();displayTables();">
+
+        <button type="button" class="button" id="submitButton" onclick="calcDrawTable()">
                 <label>Reload</label>
         </button>
-        <label class="tableLabel" >Zufällig</label>
-        <label class="tableLabel"style="left: 600px">Kaskadenmodell</label>
-        <label class="tableLabel" style="left: 800px">Nischenmodell</label>
-        <table class="table" id="randomNetWorkTable">
-            <tr>
-                <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
-                <th style="border-bottom: 2px solid black;">Wert</th>
-            </tr>
-            <tr>
-                <td class="tableEntries">Spezies</td>
-                <td id="randomspec">0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Links</td>
-                <td id="randomlink">0</td>
-            </tr>  
-            <tr>
-                <td class="tableEntries">Connectance</td>
-                <td  id="randomconnec">0</td>
-            </tr>                          
-            <tr>
-                <td class="tableEntries">Top</td>
-                <td id="randomtopPercentage">0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Interm.</td>
-                <td id="randomintermPercentage"> 0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Basal</td>
-                <td id="randombasalPercentage">0</td>
-            </tr>
-        </table> 
-        <table class="table" id="CascadeTable" style="left: 600px">
-            <tr>
-                <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
-                <th style="border-bottom: 2px solid black;">Wert</th>
-            </tr>
-            <tr>
-                <td class="tableEntries">Spezies</td>
-                <td id="cascadespec">0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Links</td>
-                <td id="cascadelink">0</td>
-            </tr>  
-            <tr>
-                <td class="tableEntries">Connectance</td>
-                <td  id="cascadeconnec">0</td>
-            </tr>                          
-            <tr>
-                <td class="tableEntries">Top</td>
-                <td id="cascadetopPercentage">0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Interm.</td>
-                <td id="cascadeintermPercentage"> 0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Basal</td>
-                <td id="cascadebasalPercentage">0</td>
-            </tr>
-        </table>
-        <table class="table" id="NicheTable" style="left: 800px">
-            <tr>
-                <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
-                <th style="border-bottom: 2px solid black;">Wert</th>
-            </tr>
-            <tr>
-                <td class="tableEntries">Spezies</td>
-                <td id="nichespec">0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Links</td>
-                <td id="nichelink">0</td>
-            </tr>  
-            <tr>
-                <td class="tableEntries">Connectance</td>
-                <td  id="nicheconnec">0</td>
-            </tr>                          
-            <tr>
-                <td class="tableEntries">Top</td>
-                <td id="nichetopPercentage">0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Interm.</td>
-                <td id="nicheintermPercentage"> 0</td>
-            </tr>
-            <tr>
-                <td class="tableEntries">Basal</td>
-                <td id="nichebasalPercentage">0</td>
-            </tr>
-        </table> 
-
+        <button type="button" class="button" id="submitButton" onclick="clearAll()">
+            <label>Clear All</label>
+        </button>
+        <div>
+            <label class="tableLabel" >Zufällig</label>
+            <label class="tableLabel"style="left: 700px">Kaskadenmodell</label>
+            <label class="tableLabel" style="left: 900px">Nischenmodell</label>
+            <table class="table" id="randomNetWorkTable">
+                <tr>
+                    <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
+                    <th style="border-bottom: 2px solid black;">Wert</th>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Spezies</td>
+                    <td id="randomspec">0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Links</td>
+                    <td id="randomlink">0</td>
+                </tr>  
+                <tr>
+                    <td class="tableEntries">Connectance</td>
+                    <td  id="randomconnec">0</td>
+                </tr>                          
+                <tr>
+                    <td class="tableEntries">Top</td>
+                    <td id="randomtopPercentage">0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Interm.</td>
+                    <td id="randomintermPercentage"> 0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Basal</td>
+                    <td id="randombasalPercentage">0</td>
+                </tr>
+            </table> 
+            <table class="table" id="CascadeTable" style="left: 700px">
+                <tr>
+                    <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
+                    <th style="border-bottom: 2px solid black;">Wert</th>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Spezies</td>
+                    <td id="cascadespec">0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Links</td>
+                    <td id="cascadelink">0</td>
+                </tr>  
+                <tr>
+                    <td class="tableEntries">Connectance</td>
+                    <td  id="cascadeconnec">0</td>
+                </tr>                          
+                <tr>
+                    <td class="tableEntries">Top</td>
+                    <td id="cascadetopPercentage">0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Interm.</td>
+                    <td id="cascadeintermPercentage"> 0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Basal</td>
+                    <td id="cascadebasalPercentage">0</td>
+                </tr>
+            </table>
+            <table class="table" id="NicheTable" style="left: 900px">
+                <tr>
+                    <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
+                    <th style="border-bottom: 2px solid black;">Wert</th>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Spezies</td>
+                    <td id="nichespec">0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Links</td>
+                    <td id="nichelink">0</td>
+                </tr>  
+                <tr>
+                    <td class="tableEntries">Connectance</td>
+                    <td  id="nicheconnec">0</td>
+                </tr>                          
+                <tr>
+                    <td class="tableEntries">Top</td>
+                    <td id="nichetopPercentage">0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Interm.</td>
+                    <td id="nicheintermPercentage"> 0</td>
+                </tr>
+                <tr>
+                    <td class="tableEntries">Basal</td>
+                    <td id="nichebasalPercentage">0</td>
+                </tr>
+            </table> 
+        </div>
+        <div id="exampleTableEnvironment" style="position: absolute; left:1150px; top:620px;">
+        </div>
 
     </body>
 
+   <!-- <label class="tableLabel" style="left: 1000px">test</label> 
+            position: absolute;
+            left: 400px;
+            top: 630px; 
 
+
+-->
 
     <!--=====================scripts==========================-->
     <script src='https://d3js.org/d3.v5.min.js'></script>
@@ -225,6 +264,35 @@
             drawgraph(graph1,"#viz1");
             drawgraph(graph2,"#viz2");
             drawgraph(graph3,"#viz3");
+        }
+        function emptyWindows() {
+            var emptygraph={
+               "nodes":[],
+               "links":[],
+            };
+            reloadsvg("viz1");
+            reloadsvg("viz2");
+            reloadsvg("viz3");      
+            drawgraph(emptygraph,"#viz1");
+            drawgraph(emptygraph,"#viz2");
+            drawgraph(emptygraph,"#viz3");      
+        }
+        function calcDrawTable() {
+            if(document.getElementById("checkdraw").checked){
+            calcFinalGraphs();
+            reloadScriptFunction();
+            displayTables();
+            } else {
+            calcFinalGraphs();
+            displayTables();
+            }
+        
+        }
+        function clearAll(){
+            document.getElementById("inputfieldSpecies").value=0;
+            document.getElementById("inputfieldLinkNum").value=0;
+            calcDrawTable();
+            clearExample();
         }
     </script>
     <script src='drawGraphs.js'></script>
