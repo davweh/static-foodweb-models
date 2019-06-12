@@ -12,6 +12,24 @@ function drawgraph(graph,svgid){
         .force("path", d3.forceLink(graph.links).id(function(d) {return d.id; }).distance(50).strength(1))
         .on("tick", ticked);
 
+    // var graphLayout = d3.forceSimulation(graph.nodes)
+    //     .force("charge", d3.forceManyBody().strength(-3000))
+    //     .force("center", d3.forceCenter(width / 2, height/ 2))
+
+
+
+    //     .force("x", function(d){if(d.id!=="n1"){d3.forceX(width / 2).strength(1)}})
+    //     .force("y", function(d){if(d.id!=="n1"){d3.forceY(height / 2).strength(1)}})
+    //     // function(d){
+    //     //     if(d.group==="basal"){return 10;}//d3.forceX(0).strength(10);}
+    //     //     if(d.group==="intermediate"){return d3.forceX(width / 2).strength(1);}
+    //     //     if(d.group==="top"){return d3.forceX(3*width ).strength(10);}
+    //     //     if(d.group==="notConnected"){return d3.forceX(7*width / 8).strength(1);}}
+    //     // )
+
+    //     .force("path", d3.forceLink(graph.links).id(function(d) {return d.id; }).distance(50).strength(1))
+    //     .on("tick", ticked);
+
     var adjlist = [];
 
     graph.links.forEach(function(d) {

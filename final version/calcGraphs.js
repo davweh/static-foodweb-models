@@ -337,15 +337,15 @@ function calcGraphNiche(numSpecies,numLinks){
             graphlinks=graph3temp.links.length;
             actualConn=graphlinks/(graphlen*graphlen);
             connecError=parseFloat(document.getElementById("inputconnErr").value);
-            console.log(connec);
-            console.log(connecError);
-            console.log(actualConn);
-            console.log(connec-connecError);
-            console.log(connec+connecError);
-            console.log(actualConn>=(connec-connecError));
-            console.log(actualConn<=(connec+connecError));
-            console.log(isinIntervall(actualConn,connec-connecError,connec+connecError));
-            console.log();
+            // console.log(connec);
+            // console.log(connecError);
+            // console.log(actualConn);
+            // console.log(connec-connecError);
+            // console.log(connec+connecError);
+            // console.log(actualConn>=(connec-connecError));
+            // console.log(actualConn<=(connec+connecError));
+            // console.log(isinIntervall(actualConn,connec-connecError,connec+connecError));
+            // console.log();
             if (isinIntervall(actualConn,connec-connecError,connec+connecError)){
                 break;
             } 
