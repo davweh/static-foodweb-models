@@ -90,13 +90,17 @@ function examplebuttonFkt(name,s,l,t,i,b){
         var tableCol1=document.createElement("td");
         var tableCol2=document.createElement("td");
         tableCol1.setAttribute("class","tableEntries");
+        if (nameArray[i]=="Connectance") {
+            tableCol1.setAttribute("style","border-bottom: 2px solid black");
+            tableCol2.setAttribute("style","border-bottom: 2px solid black");
+        }
         tableCol1.innerHTML=nameArray[i];
         tableCol2.innerHTML=valueArray[i];
         tableRow.appendChild(tableCol1);
         tableRow.appendChild(tableCol2);
         tableelem.appendChild(tableRow);
     }
-
+//
 
 
     if(typeof child[1] == 'undefined'){

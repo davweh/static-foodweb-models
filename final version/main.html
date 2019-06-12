@@ -71,6 +71,9 @@
             border: 2px solid black; 
             border-collapse: collapse;
         }
+        .inputFields {
+            position: relative;
+        }
     </style> 
     </head>
 
@@ -85,14 +88,14 @@
     <!-- svg_windows -->
         <label class="svglabel" style="left:20px">Zufälliges Netzwerk</label>
         <label class="svglabel" style="left:375px">Kaskadenmodell</label>
-        <label class="svglabel" style="left:740px">Nischenmodell(not done yet)</label>
+        <label class="svglabel" style="left:740px">Nischenmodell</label>
         <table style="position: absolute; left:1100px; top:150px;">
             <tr><td style="color: #990000; font-weight: bold;">Top</td></tr>
             <tr><td style="color: #009900; font-weight: bold;">Intermediate</td></tr>
             <tr><td style="color: #245af6; font-weight: bold;">Basal</td></tr>    
             <tr><td style="color: #000000; font-weight: bold;">nicht verbunden</td></tr>       
         </table>
-        <button type="button" class="button" id="submitButton" onclick="emptyWindows()"
+        <button type="button" class="button" id="emptyWindows" onclick="emptyWindows()"
         style="position: absolute; left:1100px; top:320px;" >
             <label>Clear Windows</label>
         </button>
@@ -125,14 +128,17 @@
 
 
         <form action="/action_page.php">
-                Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"><br>
-                Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"><br>
+                Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"
+                class="inputFields" style="left:60px"><br>
+                Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"
+                class="inputFields" style="left:78px"><br>
+                Connec. error: <input type="text" name="connectionError" id="inputconnErr" value="0.05"
+                class="inputFields" style="left:10px"><br>
         </form>
-
         <button type="button" class="button" id="submitButton" onclick="calcDrawTable()">
                 <label>Reload</label>
         </button>
-        <button type="button" class="button" id="submitButton" onclick="clearAll()">
+        <button type="button" class="button" id="clearAll" onclick="clearAll()">
             <label>Clear All</label>
         </button>
         <div>
@@ -153,8 +159,8 @@
                     <td id="randomlink">0</td>
                 </tr>  
                 <tr>
-                    <td class="tableEntries">Connectance</td>
-                    <td  id="randomconnec">0</td>
+                    <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                    <td  id="randomconnec" style="border-bottom: 2px solid black;">0</td>
                 </tr>                          
                 <tr>
                     <td class="tableEntries">Top</td>
@@ -183,8 +189,8 @@
                     <td id="cascadelink">0</td>
                 </tr>  
                 <tr>
-                    <td class="tableEntries">Connectance</td>
-                    <td  id="cascadeconnec">0</td>
+                    <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                    <td  id="cascadeconnec" style="border-bottom: 2px solid black;">0</td>
                 </tr>                          
                 <tr>
                     <td class="tableEntries">Top</td>
@@ -213,8 +219,8 @@
                     <td id="nichelink">0</td>
                 </tr>  
                 <tr>
-                    <td class="tableEntries">Connectance</td>
-                    <td  id="nicheconnec">0</td>
+                    <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                    <td  id="nicheconnec" style="border-bottom: 2px solid black;">0</td>
                 </tr>                          
                 <tr>
                     <td class="tableEntries">Top</td>

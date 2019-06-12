@@ -22,6 +22,10 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   } //output: number between 0 and max-1
 
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }//output: in [min,max)
+
 function getPropsAsList(graph) {
     var sourceRetList=[];
     var targetRetList=[];
@@ -174,6 +178,8 @@ function isConnected(graph){
 // console.log(isConnected(testgraph1Conn));
 
 /**/
+
+
 // ===================Random Network==============================
 function calcGraphRandom(numSpecies,numLinks){
     var connec=numLinks/(numSpecies*numSpecies);
@@ -203,6 +209,7 @@ function calcGraphRandom(numSpecies,numLinks){
 
     return graph1temp;
 }
+
 
 
 // ===================Cascade model==============================
@@ -235,37 +242,17 @@ function calcGraphCascade(numSpecies,numLinks){
     return graph2temp;
 }
 
+
+
 // ===================Niche model(not done yet)==============================
-function calcGraphNiche(numSpecies,numLinks){
-    var connec=numLinks/(numSpecies*numSpecies);
-    var graph3temp={
-        "nodes":[],
-        "links":[],
-    };
-
-    for (var i=1;i<=numSpecies;i++){
-        graph3temp.nodes.push({"id":"n"+i,"group":"intermediate"})
-    }
-
-    var numOfLinksInGraph=0;
-    while (numOfLinksInGraph<numLinks){
-        let randomNode1="n"+(getRandomInt(numSpecies)+1);
-        let randomNode2="n"+(getRandomInt(numSpecies)+1);
-        if (Math.random()<=connec   && containsObject(graph3temp.links,{"source":randomNode1,"target":randomNode2})==false) {
-            graph3temp.links.push({"source":randomNode1,"target":randomNode2});
-            numOfLinksInGraph++;
-        } 
-        
-    }
-    calcGroups(graph3temp);
-
-    return graph3temp;
-}
-// function calcGraphNiche(numSpecies,numLinks){
+// function calcGraphNicheTest(numSpecies,numLinks){
+//     var connec=numLinks/(numSpecies*numSpecies);
+//     var betaProp=1/(2*connec)  -1;
 //     var graph3temp={
 //         "nodes":[],
 //         "links":[],
 //     };
+
 //     for (var i=1;i<=numSpecies;i++){
 //         graph3temp.nodes.push({"id":"n"+i,"group":"intermediate"})
 //     }
@@ -280,16 +267,95 @@ function calcGraphNiche(numSpecies,numLinks){
 //         } 
         
 //     }
-    
-    
-    
-    
-    
-    
 //     calcGroups(graph3temp);
 
 //     return graph3temp;
 // }
+
+function compare(a,b){
+    if(a.nichevalue>b.nichevalue) return 1;
+    if(a.nichevalue<b.nichevalue) return -1;
+    return 0;
+}
+
+function getIntervallWidth(nicheVal,beta){
+    while(true){
+    var randomVal=Math.random();
+    if(randomVal!=0) break;
+    }
+    return nicheVal*(1-Math.pow(1-randomVal,1/beta));
+}
+function isinIntervall(value,a,b){
+    if(parseFloat(value)>=parseFloat(a) && parseFloat(value)<=parseFloat(b)) return true;
+    else return false;
+}
+
+
+// ===================Niche model(not done yet)==============================
+function calcGraphNiche(numSpecies,numLinks){
+    var connec=numLinks/(numSpecies*numSpecies);
+    var betaProp=1/(2*connec) -1;
+    var currNicheVal,intvallR,intvallCenter,graphlen,graphlinks,connecError,actualConn,graph3temp;
+    if(numSpecies!=0){
+        while(true){
+            graph3temp={
+                "nodes":[],
+                "links":[],
+            };
+            for (var i=1;i<=numSpecies;i++){
+                graph3temp.nodes.push({"nichevalue":Math.random()})
+            }
+            graph3temp.nodes=graph3temp.nodes.sort(compare);
+
+
+            for (var i=1;i<=numSpecies;i++){
+                graph3temp.nodes[i-1].group="intermediate";
+                graph3temp.nodes[i-1].id="n"+i;
+
+            }
+
+            for(var i=0;i<numSpecies;i++) {
+                currNicheVal=graph3temp.nodes[i].nichevalue;
+                intvallR=getIntervallWidth(currNicheVal,betaProp);
+                if (currNicheVal<= 1-intvallR/2){
+                    intvallCenter=getRandomArbitrary(intvallR/2,currNicheVal);
+                }
+                else if(currNicheVal> 1- intvallR/2) {
+                    intvallCenter=getRandomArbitrary(intvallR/2,1-intvallR/2);
+                }
+                for(var j=0;j<numSpecies;j++){
+                    if(
+                        isinIntervall(graph3temp.nodes[j].nichevalue,
+                        intvallCenter-intvallR/2,
+                        intvallCenter+intvallR/2)
+                        ) {
+                            graph3temp.links.push({"source":graph3temp.nodes[i].id,"target":graph3temp.nodes[j].id});
+                    }
+                }
+            }
+            graphlen=graph3temp.nodes.length;
+            graphlinks=graph3temp.links.length;
+            actualConn=graphlinks/(graphlen*graphlen);
+            connecError=parseFloat(document.getElementById("inputconnErr").value);
+            console.log(connec);
+            console.log(connecError);
+            console.log(actualConn);
+            console.log(connec-connecError);
+            console.log(connec+connecError);
+            console.log(actualConn>=(connec-connecError));
+            console.log(actualConn<=(connec+connecError));
+            console.log(isinIntervall(actualConn,connec-connecError,connec+connecError));
+            console.log();
+            if (isinIntervall(actualConn,connec-connecError,connec+connecError)){
+                break;
+            } 
+
+        }
+
+        calcGroups(graph3temp);
+        return graph3temp;
+    } else{return {"nodes":[],"links":[]};}
+}
 
 
 
@@ -299,24 +365,24 @@ function calcFinalGraphs() {
 
         while (true) {
             graph1=calcGraphRandom(
-                document.getElementById("inputfieldSpecies").value,
-                document.getElementById("inputfieldLinkNum").value);
+                parseInt(document.getElementById("inputfieldSpecies").value,10),
+                parseInt(document.getElementById("inputfieldLinkNum").value,10));
             if(isConnected(graph1)) {
                 break;
             }
         }
         while (true) {
-            graph2=calcGraphRandom(
-                document.getElementById("inputfieldSpecies").value,
-                document.getElementById("inputfieldLinkNum").value);
+            graph2=calcGraphCascade(
+                parseInt(document.getElementById("inputfieldSpecies").value,10),
+                parseInt(document.getElementById("inputfieldLinkNum").value,10));
             if(isConnected(graph2)) {
                 break;
             }
         }
         while (true) {
-            graph3=calcGraphRandom(
-                document.getElementById("inputfieldSpecies").value,
-                document.getElementById("inputfieldLinkNum").value);
+            graph3=calcGraphNiche(
+                parseInt(document.getElementById("inputfieldSpecies").value,10),
+                parseInt(document.getElementById("inputfieldLinkNum").value,10));
             if(isConnected(graph3)) {
                 break;
             }
@@ -324,14 +390,14 @@ function calcFinalGraphs() {
     
     } else {
         graph1=calcGraphRandom(
-            document.getElementById("inputfieldSpecies").value,
-            document.getElementById("inputfieldLinkNum").value);
+            parseInt(document.getElementById("inputfieldSpecies").value,10),
+            parseInt(document.getElementById("inputfieldLinkNum").value,10));
         graph2=calcGraphCascade(
-            document.getElementById("inputfieldSpecies").value,
-            document.getElementById("inputfieldLinkNum").value);
+            parseInt(document.getElementById("inputfieldSpecies").value,10),
+            parseInt(document.getElementById("inputfieldLinkNum").value,10));
         graph3=calcGraphNiche(
-            document.getElementById("inputfieldSpecies").value,
-            document.getElementById("inputfieldLinkNum").value);
+            parseInt(document.getElementById("inputfieldSpecies").value,10),
+            parseInt(document.getElementById("inputfieldLinkNum").value,10));
     }
 }
 calcFinalGraphs();
