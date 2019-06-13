@@ -47,20 +47,21 @@
              background-color: white;
         }
         .table{
-            position: absolute;
-            left: 500px;
-            top: 650px; 
+            /* position: relative; */
+            /* left: 500px;
+            top: 650px;  */
             border: 2px solid black; 
             border-collapse: collapse;
+            float: left;    
         }
         .tableEntries{
             border-right: 2px solid black; 
         }
         .tableLabel{
             font-size: 20px;
-            position:absolute;
-            left: 510px;
-            top: 620px; 
+            /* position:absolute; */
+            /* left: 510px;
+            top: 620px;  */
         }
         th, td {
             padding: 10px;
@@ -129,11 +130,11 @@
 
         <form action="/action_page.php">
                 Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"
-                class="inputFields" style="left:60px"><br>
+                class="inputFields" style="left:60px" size="2"><br>
                 Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"
-                class="inputFields" style="left:78px"><br>
+                class="inputFields" style="left:78px" size="2"><br>
                 Connec. error: <input type="text" name="connectionError" id="inputconnErr" value="0.05"
-                class="inputFields" style="left:10px"><br>
+                class="inputFields" style="left:10px" size="2"><br>
         </form>
         <button type="button" class="button" id="submitButton" onclick="calcDrawTable()">
                 <label>Reload</label>
@@ -141,7 +142,7 @@
         <button type="button" class="button" id="clearAll" onclick="clearAll()">
             <label>Clear All</label>
         </button>
-        <div>
+        <div style="position: absolute; left: 500px; top: 650px; height: auto; width: 1000px" >
             <label class="tableLabel" >Zufällig</label>
             <label class="tableLabel"style="left: 700px">Kaskadenmodell</label>
             <label class="tableLabel" style="left: 900px">Nischenmodell</label>
@@ -175,7 +176,8 @@
                     <td id="randombasalPercentage">0</td>
                 </tr>
             </table> 
-            <table class="table" id="CascadeTable" style="left: 700px">
+            <table class="table" id="CascadeTable" >
+                <!--  style="left: 700px" -->
                 <tr>
                     <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
                     <th style="border-bottom: 2px solid black;">Wert</th>
@@ -239,6 +241,18 @@
         <div id="exampleTableEnvironment" style="position: absolute; left:1150px; top:620px;">
         </div>
 
+
+
+    <br>
+    <br>
+    <br>
+    <form action="/action_page.php">
+            Calc. multiple times: <input type="text" name="calcstat" id="calcStatInput" value="0"
+            class="inputFields" style="left:0px" size="2"><br>
+    </form>
+    <button type="button" class="button" id="startCalcStat" style="position: relative; top:-65px; left:280px "  onclick="calcMultipleTimes()">
+        <label>Start</label>
+    </button>
     </body>
 
    <!-- <label class="tableLabel" style="left: 1000px">test</label> 
@@ -302,4 +316,5 @@
         }
     </script>
     <script src='drawGraphs.js'></script>
+    <script src='calcGraphStatistical.js'></script>
 </html>
