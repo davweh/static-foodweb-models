@@ -61,23 +61,26 @@ function examplebuttonFkt(name,s,l,t,i,b){
     calcDrawTable();
     var tableDiv=document.getElementById("exampleTableEnvironment");
     
-    var labelelem=document.createElement("label");
-     labelelem.setAttribute("style","font-size:20px; position:relative; left:10px;");
-     labelelem.id="tablelableId";
-             
-    labelelem.innerHTML=name;
     var child=tableDiv.childNodes;
     var tableelem=document.createElement("table");
-     tableelem.setAttribute("class","exampleTable");
+     tableelem.setAttribute("class","table");
+     tableelem.setAttribute("style","left:100px;")
      tableelem.id="tableId";
+
+    var labelrow=document.createElement("tr");
+    var labelrowContent=document.createElement("td");
+    labelrowContent.setAttribute("colspan","2");
+    labelrowContent.setAttribute("class","tableLabel");
+    labelrowContent.innerHTML=name;
+    labelrow.appendChild(labelrowContent);
+    tableelem.appendChild(labelrow);
+
     var tableRow1=document.createElement("tr");
     var tablehead1=document.createElement("th");
-     tablehead1.setAttribute("class","tableEntries");
-     tablehead1.setAttribute("style","border-bottom: 2px solid black; ");
+     tablehead1.setAttribute("class","tableheader");
      tablehead1.innerHTML="Eigenschaft";
     var tablehead2=document.createElement("th");
-    tablehead2.setAttribute("class","tableEntries");
-    tablehead2.setAttribute("style","border-bottom: 2px solid black; ");
+    tablehead2.setAttribute("class","tableheader");
     tablehead2.innerHTML="Wert";
     tableRow1.appendChild(tablehead1);
     tableRow1.appendChild(tablehead2);
@@ -90,6 +93,7 @@ function examplebuttonFkt(name,s,l,t,i,b){
         var tableCol1=document.createElement("td");
         var tableCol2=document.createElement("td");
         tableCol1.setAttribute("class","tableEntries");
+        tableCol2.setAttribute("class","tableEntries");
         if (nameArray[i]=="Connectance") {
             tableCol1.setAttribute("style","border-bottom: 2px solid black");
             tableCol2.setAttribute("style","border-bottom: 2px solid black");
@@ -100,17 +104,8 @@ function examplebuttonFkt(name,s,l,t,i,b){
         tableRow.appendChild(tableCol2);
         tableelem.appendChild(tableRow);
     }
-//
-
 
     if(typeof child[1] == 'undefined'){
-        tableDiv.appendChild(labelelem);
-    }
-    else {
-        tableDiv.removeChild(document.getElementById("tablelableId"));
-        tableDiv.appendChild(labelelem);
-    }
-    if(typeof child[2] == 'undefined'){
         tableDiv.appendChild(tableelem);
     }
     else {
@@ -123,10 +118,8 @@ function examplebuttonFkt(name,s,l,t,i,b){
 function clearExample(){
     var tableDiv=document.getElementById("exampleTableEnvironment");
     var child=tableDiv.childNodes;
-    if(typeof child[2] !== 'undefined'){
+    if(typeof child[1] !== 'undefined'){
         tableDiv.removeChild(document.getElementById("tableId"));
     }
-    if(typeof child[1] !== 'undefined'){
-    tableDiv.removeChild(document.getElementById("tablelableId"));
-    }
+
 }

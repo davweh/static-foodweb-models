@@ -231,8 +231,8 @@ function calcGraphCascade(numSpecies,numLinks){
         if (firstRandNum==1) {continue;}
         let randomNode1="n"+firstRandNum;
         let randomNode2="n"+(getRandomInt(firstRandNum-1)+1);
-        if (Math.random()<=prob  && containsObject(graph2temp.links,{"source":randomNode1,"target":randomNode2})==false) {
-            graph2temp.links.push({"source":randomNode1,"target":randomNode2});
+        if (Math.random()<=prob  && containsObject(graph2temp.links,{"source":randomNode2,"target":randomNode1})==false) {
+            graph2temp.links.push({"source":randomNode2,"target":randomNode1});
             numOfLinksInGraph2++;
         } 
         
@@ -244,7 +244,7 @@ function calcGraphCascade(numSpecies,numLinks){
 
 
 
-// ===================Niche model(not done yet)==============================
+// ===================Niche model==============================
 // function calcGraphNicheTest(numSpecies,numLinks){
 //     var connec=numLinks/(numSpecies*numSpecies);
 //     var betaProp=1/(2*connec)  -1;
@@ -280,10 +280,14 @@ function compare(a,b){
 
 function getIntervallWidth(nicheVal,beta){
     while(true){
-    var randomVal=Math.random();
+    var randomVal=parseFloat(Math.random());
     if(randomVal!=0) break;
     }
-    return nicheVal*(1-Math.pow(1-randomVal,1/beta));
+    // console.log("nicheVal " + nicheVal);
+    // console.log("beta " + beta);
+    // console.log("randomVal " + randomVal);
+    // console.log("result " + parseFloat(nicheVal*(1-Math.pow(1-randomVal,1/beta))));
+    return parseFloat(nicheVal*(1-Math.pow(1-randomVal,1/beta)));
 }
 function isinIntervall(value,a,b){
     if(parseFloat(value)>=parseFloat(a) && parseFloat(value)<=parseFloat(b)) return true;
@@ -291,10 +295,10 @@ function isinIntervall(value,a,b){
 }
 
 
-// ===================Niche model(not done yet)==============================
+
 function calcGraphNiche(numSpecies,numLinks){
-    var connec=numLinks/(numSpecies*numSpecies);
-    var betaProp=1/(2*connec) -1;
+    var connec=parseFloat(numLinks/(numSpecies*numSpecies));
+    var betaProp=parseFloat(1/(2*connec) -1);
     var currNicheVal,intvallR,intvallCenter,graphlen,graphlinks,connecError,actualConn,graph3temp;
     if(numSpecies!=0){
         while(true){
@@ -315,23 +319,31 @@ function calcGraphNiche(numSpecies,numLinks){
             }
 
             for(var i=0;i<numSpecies;i++) {
-                currNicheVal=graph3temp.nodes[i].nichevalue;
-                intvallR=getIntervallWidth(currNicheVal,betaProp);
+                currNicheVal=parseFloat(graph3temp.nodes[i].nichevalue);
+                intvallR=parseFloat(getIntervallWidth(currNicheVal,betaProp));
                 if (currNicheVal<= 1-intvallR/2){
-                    intvallCenter=getRandomArbitrary(intvallR/2,currNicheVal);
+                    intvallCenter=parseFloat(getRandomArbitrary(intvallR/2,currNicheVal));
                 }
                 else if(currNicheVal> 1- intvallR/2) {
-                    intvallCenter=getRandomArbitrary(intvallR/2,1-intvallR/2);
+                    // console.log("hallo");
+                    intvallCenter=parseFloat(getRandomArbitrary(intvallR/2,1-intvallR/2));
                 }
                 for(var j=0;j<numSpecies;j++){
                     if(
-                        isinIntervall(graph3temp.nodes[j].nichevalue,
-                        intvallCenter-intvallR/2,
-                        intvallCenter+intvallR/2)
+                        isinIntervall(parseFloat(graph3temp.nodes[j].nichevalue),
+                        parseFloat(intvallCenter)-parseFloat(intvallR/2),
+                        parseFloat(intvallCenter)+parseFloat(intvallR/2))
                         ) {
-                            graph3temp.links.push({"source":graph3temp.nodes[i].id,"target":graph3temp.nodes[j].id});
+                            // console.log("ni "+graph3temp.nodes[j].nichevalue);
+                            // console.log("Ci "+intvallCenter);
+                            // console.log("ri "+intvallR);
+                            // console.log(intvallCenter-intvallR/2);
+                            // console.log(intvallCenter+intvallR/2);
+                            // console.log("");
+                            graph3temp.links.push({"source":graph3temp.nodes[j].id,"target":graph3temp.nodes[i].id});
                     }
                 }
+
             }
             graphlen=graph3temp.nodes.length;
             graphlinks=graph3temp.links.length;
@@ -353,6 +365,7 @@ function calcGraphNiche(numSpecies,numLinks){
         }
 
         calcGroups(graph3temp);
+        console.log(graph3temp.nodes);
         return graph3temp;
     } else{return {"nodes":[],"links":[]};}
 }

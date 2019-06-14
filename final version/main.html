@@ -1,81 +1,7 @@
 <html>
     <meta charset="UTF-8"> 
     <head>
-        <style> 
-        /*=====================CSS styles==========================*/
-        .checkBox { 
-            background-color: #f0f0f0;
-            border: 2px solid black; 
-            color: black; 
-            padding: 5px 10px; 
-            text-align: center; 
-            display: inline-block; 
-            font-size: 20px; 
-            margin: 10px 10px; 
-            cursor: pointer; 
-        } 
-        .checkBox:hover {background-color: #088208;}
-        .svgframes{
-            border: 1px solid black
-        }
-        .button { 
-            background-color: #f0f0f0; 
-            border: 2px solid black; 
-            color: black; 
-            padding: 5px 10px; 
-            text-align: center; 
-            display: inline-block; 
-            font-size: 20px; 
-            margin: 10px 10px; 
-            cursor: pointer; 
-            border-radius: 8px;
-        } 
-        .button:hover {background-color: #088208;}
-
-        .button:active {
-        background-color:#088208;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-        }
-        .svglabel {
-            font-size: 20px;
-            position:absolute;
-            top: 125px;
-
-        }
-        .body {
-             background-color: white;
-        }
-        .table{
-            /* position: relative; */
-            /* left: 500px;
-            top: 650px;  */
-            border: 2px solid black; 
-            border-collapse: collapse;
-            float: left;    
-        }
-        .tableEntries{
-            border-right: 2px solid black; 
-        }
-        .tableLabel{
-            font-size: 20px;
-            /* position:absolute; */
-            /* left: 510px;
-            top: 620px;  */
-        }
-        th, td {
-            padding: 10px;
-        }
-        .exampleTable {
-            position: absolute;
-            top: 30px; 
-            border: 2px solid black; 
-            border-collapse: collapse;
-        }
-        .inputFields {
-            position: relative;
-        }
-    </style> 
+        <link rel="stylesheet" href="style.css">
     </head>
 
 
@@ -142,106 +68,114 @@
         <button type="button" class="button" id="clearAll" onclick="clearAll()">
             <label>Clear All</label>
         </button>
-        <div style="position: absolute; left: 500px; top: 650px; height: auto; width: 1000px" >
-            <label class="tableLabel" >Zufällig</label>
-            <label class="tableLabel"style="left: 700px">Kaskadenmodell</label>
-            <label class="tableLabel" style="left: 900px">Nischenmodell</label>
-            <table class="table" id="randomNetWorkTable">
-                <tr>
-                    <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
-                    <th style="border-bottom: 2px solid black;">Wert</th>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Spezies</td>
-                    <td id="randomspec">0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Links</td>
-                    <td id="randomlink">0</td>
-                </tr>  
-                <tr>
-                    <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
-                    <td  id="randomconnec" style="border-bottom: 2px solid black;">0</td>
-                </tr>                          
-                <tr>
-                    <td class="tableEntries">Top</td>
-                    <td id="randomtopPercentage">0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Interm.</td>
-                    <td id="randomintermPercentage"> 0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Basal</td>
-                    <td id="randombasalPercentage">0</td>
-                </tr>
-            </table> 
-            <table class="table" id="CascadeTable" >
-                <!--  style="left: 700px" -->
-                <tr>
-                    <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
-                    <th style="border-bottom: 2px solid black;">Wert</th>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Spezies</td>
-                    <td id="cascadespec">0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Links</td>
-                    <td id="cascadelink">0</td>
-                </tr>  
-                <tr>
-                    <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
-                    <td  id="cascadeconnec" style="border-bottom: 2px solid black;">0</td>
-                </tr>                          
-                <tr>
-                    <td class="tableEntries">Top</td>
-                    <td id="cascadetopPercentage">0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Interm.</td>
-                    <td id="cascadeintermPercentage"> 0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Basal</td>
-                    <td id="cascadebasalPercentage">0</td>
-                </tr>
-            </table>
-            <table class="table" id="NicheTable" style="left: 900px">
-                <tr>
-                    <th class="tableEntries" style="border-bottom: 2px solid black; ">Eigenschaft</th>
-                    <th style="border-bottom: 2px solid black;">Wert</th>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Spezies</td>
-                    <td id="nichespec">0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Links</td>
-                    <td id="nichelink">0</td>
-                </tr>  
-                <tr>
-                    <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
-                    <td  id="nicheconnec" style="border-bottom: 2px solid black;">0</td>
-                </tr>                          
-                <tr>
-                    <td class="tableEntries">Top</td>
-                    <td id="nichetopPercentage">0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Interm.</td>
-                    <td id="nicheintermPercentage"> 0</td>
-                </tr>
-                <tr>
-                    <td class="tableEntries">Basal</td>
-                    <td id="nichebasalPercentage">0</td>
-                </tr>
-            </table> 
-        </div>
-        <div id="exampleTableEnvironment" style="position: absolute; left:1150px; top:620px;">
-        </div>
 
-
+        <div id="tableDiv" style="position: absolute; left: 500px; top: 650px; height: 300; width: 1000px" >
+            <div style="float: left;">
+                <table class="table" id="randomNetWorkTable">
+                    <tr>
+                        <td colspan="2" class="tableLabel">Zufällig</td>
+                    </tr>
+                    <tr>
+                        <th class="tableheader" >Eigenschaft</th>
+                        <th  class="tableheader" >Wert</th>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Spezies</td>
+                        <td  class="tableEntries" id="randomspec">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Links</td>
+                        <td  class="tableEntries" id="randomlink">0</td>
+                    </tr>  
+                    <tr>
+                        <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                        <td   class="tableEntries" id="randomconnec" style="border-bottom: 2px solid black;">0</td>
+                    </tr>                          
+                    <tr>
+                        <td class="tableEntries">Top</td>
+                        <td  class="tableEntries" id="randomtopPercentage">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Interm.</td>
+                        <td  class="tableEntries" id="randomintermPercentage"> 0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Basal</td>
+                        <td  class="tableEntries" id="randombasalPercentage">0</td>
+                    </tr>
+                </table> 
+                <table class="table" id="CascadeTable" style="left: 20px;">
+                    <tr>
+                            <td colspan="2" class="tableLabel">Kaskadenmodell</td>
+                    </tr>
+                    <tr>
+                        <th class="tableheader">Eigenschaft</th>
+                        <th class="tableheader">Wert</th>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Spezies</td>
+                        <td class="tableEntries" id="cascadespec">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Links</td>
+                        <td class="tableEntries" id="cascadelink">0</td>
+                    </tr>  
+                    <tr>
+                        <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                        <td  class="tableEntries" id="cascadeconnec" style="border-bottom: 2px solid black;">0</td>
+                    </tr>                          
+                    <tr>
+                        <td class="tableEntries">Top</td>
+                        <td class="tableEntries" id="cascadetopPercentage">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Interm.</td>
+                        <td class="tableEntries" id="cascadeintermPercentage"> 0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Basal</td>
+                        <td class="tableEntries" id="cascadebasalPercentage">0</td>
+                    </tr>
+                </table>
+                <table class="table" id="NicheTable" style="left: 40px">
+                    <tr>
+                            <td colspan="2" class="tableLabel">Nischenmodell</td>
+                    </tr>
+                    <tr>
+                        <th class="tableheader">Eigenschaft</th>
+                        <th class="tableheader">Wert</th>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Spezies</td>
+                        <td class="tableEntries" id="nichespec">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Links</td>
+                        <td class="tableEntries" id="nichelink">0</td>
+                    </tr>  
+                    <tr>
+                        <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                        <td class="tableEntries" id="nicheconnec" style="border-bottom: 2px solid black;">0</td>
+                    </tr>                          
+                    <tr>
+                        <td class="tableEntries">Top</td>
+                        <td class="tableEntries" id="nichetopPercentage">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Interm.</td>
+                        <td class="tableEntries" id="nicheintermPercentage"> 0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Basal</td>
+                        <td class="tableEntries" id="nichebasalPercentage">0</td>
+                    </tr>
+                </table> 
+                <!-- <table class="table" id="exampleTableEnvironment" style="left:100px"></table> -->
+            </div>
+            <div id="exampleTableEnvironment"> 
+            </div>
+            <!--absolute; left:1150px; top:620px;"> -->
+        </div>
 
     <br>
     <br>

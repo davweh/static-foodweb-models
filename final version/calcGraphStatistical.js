@@ -56,9 +56,9 @@ function calcMultipleTimes(){
         randomMeanSTD[n]=getMeanStdDev(randomVals[n]);
         cascadeMeanSTD[n]=getMeanStdDev(cascadeVals[n]);
         nisheMeanSTD[n]=getMeanStdDev(nisheVals[n]);
-        console.log(randomMeanSTD[n]);
-        console.log(cascadeMeanSTD[n]);
-        console.log(nisheMeanSTD[n]);
+        // console.log(randomMeanSTD[n]);
+        // console.log(cascadeMeanSTD[n]);
+        // console.log(nisheMeanSTD[n]);
     }
 
 
