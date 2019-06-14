@@ -1,0 +1,71 @@
+.checkBox { 
+    background-color: #f0f0f0;
+    border: 2px solid black; 
+    color: black; 
+    padding: 5px 10px; 
+    text-align: center; 
+    display: inline-block; 
+    font-size: 20px; 
+    margin: 10px 10px; 
+    cursor: pointer; 
+} 
+.checkBox:hover {background-color: #088208;}
+.svgframes{
+    border: 1px solid black
+}
+.button { 
+    background-color: #f0f0f0; 
+    border: 2px solid black; 
+    color: black; 
+    padding: 5px 10px; 
+    text-align: center; 
+    display: inline-block; 
+    font-size: 20px; 
+    margin: 10px 10px; 
+    cursor: pointer; 
+    border-radius: 8px;
+} 
+.button:hover {background-color: #088208;}
+
+.button:active {
+background-color:#088208;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+.svglabel {
+    font-size: 20px;
+    position:absolute;
+    top: 125px;
+
+}
+.body {
+     background-color: white;
+}
+
+
+.table{
+    position: relative;
+    border-bottom: 2px solid black;
+    border-collapse: collapse;
+    float: left;    
+}
+.tableLabel{
+    font-size: 20px;
+    text-align:center;
+}
+.tableheader{
+    border:2px solid black;
+}
+.tableEntries{
+    border-right: 2px solid black; 
+    border-left: 2px solid black; 
+    text-align: center;
+}
+
+th, td {
+    padding: 10px;
+}
+
+.inputFields {
+    position: relative;
+}

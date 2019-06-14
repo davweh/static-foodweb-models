@@ -1,0 +1,273 @@
+<html>
+    <meta charset="UTF-8"> 
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+
+    <body class="body">
+        <!--=====================body==========================-->
+
+        <title>Struktur von Nahrungsnetzen</title>
+        <h1 style="font-size:30px; font-weight: bold;">CIRCLE TEST</h1> von David Huber
+        <hr style="margin-right:auto "/>
+        <br></br>
+    <!-- svg_windows -->
+        <label class="svglabel" style="left:20px">Zufälliges Netzwerk</label>
+        <label class="svglabel" style="left:375px">Kaskadenmodell</label>
+        <label class="svglabel" style="left:740px">Nischenmodell</label>
+        <table style="position: absolute; left:1100px; top:150px;">
+            <tr><td style="color: #990000; font-weight: bold;">Top</td></tr>
+            <tr><td style="color: #009900; font-weight: bold;">Intermediate</td></tr>
+            <tr><td style="color: #245af6; font-weight: bold;">Basal</td></tr>    
+            <tr><td style="color: #000000; font-weight: bold;">nicht verbunden</td></tr>       
+        </table>
+        <button type="button" class="button" id="emptyWindows" onclick="emptyWindows()"
+        style="position: absolute; left:1100px; top:320px;" >
+            <label>Clear Windows</label>
+        </button>
+        <svg id='viz1' class="svgframes" ></svg>
+        <svg id='viz2' class="svgframes" ></svg>
+        <svg id='viz3' class="svgframes" ></svg>
+    <!-- buttons and stuff -->
+    <br></br>
+        <label class="checkBox"><input type="checkbox" id="checkdraw" checked="true" />Draw</label>
+        <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction();"/>Focus</label>
+        <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcFinalGraphs();reloadScriptFunction();displayTables();"/>Connected</label>
+        
+        
+        <button type="button" class="button" id="SkipwithPond" onclick="examplebuttonFkt('Skipwith Pond' ,25,198,0.04,0.92,0.04);"
+        style="position: relative; left: 50px;">
+            <label>Skipwith Pond</label>
+        </button>
+        <button type="button" class="button" id="BridgeBrookLake" onclick="examplebuttonFkt('Bridge Brook Lake' ,25,108,0,0.68,0.32);"
+        style="position: relative; left: 50px;">
+            <label>Bridge Brook Lake</label>
+        </button>
+        <button type="button" class="button" id="LittleRockLake" onclick="examplebuttonFkt('Little Rock Lake' ,92,994,0.01,0.86,0.13);"
+        style="position: relative; left: 50px;">
+            <label>Little Rock Lake</label>
+        </button>
+        <button type="button" class="button" id="clearExample" onclick="clearExample();"
+        style="position: relative; left: 50px;">
+            <label>Clear Table</label>
+        </button>
+
+
+        <form action="/action_page.php">
+                Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"
+                class="inputFields" style="left:60px" size="2"><br>
+                Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"
+                class="inputFields" style="left:78px" size="2"><br>
+                Connec. error: <input type="text" name="connectionError" id="inputconnErr" value="0.05"
+                class="inputFields" style="left:10px" size="2"><br>
+        </form>
+        <button type="button" class="button" id="submitButton" onclick="calcDrawTable()">
+                <label>Reload</label>
+        </button>
+        <button type="button" class="button" id="clearAll" onclick="clearAll()">
+            <label>Clear All</label>
+        </button>
+
+        <div id="tableDiv" style="position: absolute; left: 500px; top: 650px; height: 300; width: 1000px" >
+            <div style="float: left;">
+                <table class="table" id="randomNetWorkTable">
+                    <tr>
+                        <td colspan="2" class="tableLabel">Zufällig</td>
+                    </tr>
+                    <tr>
+                        <th class="tableheader" >Eigenschaft</th>
+                        <th  class="tableheader" >Wert</th>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Spezies</td>
+                        <td  class="tableEntries" id="randomspec">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Links</td>
+                        <td  class="tableEntries" id="randomlink">0</td>
+                    </tr>  
+                    <tr>
+                        <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                        <td   class="tableEntries" id="randomconnec" style="border-bottom: 2px solid black;">0</td>
+                    </tr>                          
+                    <tr>
+                        <td class="tableEntries">Top</td>
+                        <td  class="tableEntries" id="randomtopPercentage">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Interm.</td>
+                        <td  class="tableEntries" id="randomintermPercentage"> 0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Basal</td>
+                        <td  class="tableEntries" id="randombasalPercentage">0</td>
+                    </tr>
+                </table> 
+                <table class="table" id="CascadeTable" style="left: 20px;">
+                    <tr>
+                            <td colspan="2" class="tableLabel">Kaskadenmodell</td>
+                    </tr>
+                    <tr>
+                        <th class="tableheader">Eigenschaft</th>
+                        <th class="tableheader">Wert</th>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Spezies</td>
+                        <td class="tableEntries" id="cascadespec">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Links</td>
+                        <td class="tableEntries" id="cascadelink">0</td>
+                    </tr>  
+                    <tr>
+                        <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                        <td  class="tableEntries" id="cascadeconnec" style="border-bottom: 2px solid black;">0</td>
+                    </tr>                          
+                    <tr>
+                        <td class="tableEntries">Top</td>
+                        <td class="tableEntries" id="cascadetopPercentage">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Interm.</td>
+                        <td class="tableEntries" id="cascadeintermPercentage"> 0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Basal</td>
+                        <td class="tableEntries" id="cascadebasalPercentage">0</td>
+                    </tr>
+                </table>
+                <table class="table" id="NicheTable" style="left: 40px">
+                    <tr>
+                            <td colspan="2" class="tableLabel">Nischenmodell</td>
+                    </tr>
+                    <tr>
+                        <th class="tableheader">Eigenschaft</th>
+                        <th class="tableheader">Wert</th>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Spezies</td>
+                        <td class="tableEntries" id="nichespec">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Links</td>
+                        <td class="tableEntries" id="nichelink">0</td>
+                    </tr>  
+                    <tr>
+                        <td class="tableEntries" style="border-bottom: 2px solid black;">Connectance</td>
+                        <td class="tableEntries" id="nicheconnec" style="border-bottom: 2px solid black;">0</td>
+                    </tr>                          
+                    <tr>
+                        <td class="tableEntries">Top</td>
+                        <td class="tableEntries" id="nichetopPercentage">0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Interm.</td>
+                        <td class="tableEntries" id="nicheintermPercentage"> 0</td>
+                    </tr>
+                    <tr>
+                        <td class="tableEntries">Basal</td>
+                        <td class="tableEntries" id="nichebasalPercentage">0</td>
+                    </tr>
+                </table> 
+                <!-- <table class="table" id="exampleTableEnvironment" style="left:100px"></table> -->
+            </div>
+            <div id="exampleTableEnvironment"> 
+            </div>
+            <!--absolute; left:1150px; top:620px;"> -->
+        </div>
+
+    <br>
+    <br>
+    <br>
+    <form action="/action_page.php">
+            Calc. multiple times: <input type="text" name="calcstat" id="calcStatInput" value="0"
+            class="inputFields" style="left:0px" size="2"><br>
+    </form>
+    <button type="button" class="button" id="startCalcStat" style="position: relative; top:-65px; left:280px "  onclick="calcMultipleTimes()">
+        <label>Start</label>
+    </button>
+
+    <button id="layoutTest" onclick="reorder()">Click Misch</button>
+    </body>
+
+   <!-- <label class="tableLabel" style="left: 1000px">test</label> 
+            position: absolute;
+            left: 400px;
+            top: 630px; 
+
+
+-->
+
+    <!--=====================scripts==========================-->
+    <!-- <script src='https://d3js.org/d3.v5.min.js'></script> -->
+    <script src='d3.v5.min.js'></script>
+    <script src='calcGraphs.js'></script>
+    <script src='calcProperties.js'></script>
+    <script>
+        function reloadsvg(id) {
+            var bodyparent= document.body; 
+            oldsvg=document.getElementById(id);
+            var newsvg=document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            newsvg.setAttributeNS(null,"id",id);
+            newsvg.setAttributeNS(null,"class","svgframes");
+            bodyparent.replaceChild(newsvg,oldsvg);
+
+        }
+        function reloadScriptFunction() {
+            reloadsvg("viz1");
+            reloadsvg("viz2");
+            reloadsvg("viz3");
+            drawgraph(graph1,"#viz1");
+            drawgraph(graph2,"#viz2");
+            drawgraph(graph3,"#viz3");
+        }
+        function emptyWindows() {
+            var emptygraph={
+               "nodes":[],
+               "links":[],
+            };
+            reloadsvg("viz1");
+            reloadsvg("viz2");
+            reloadsvg("viz3");      
+            drawgraph(emptygraph,"#viz1");
+            drawgraph(emptygraph,"#viz2");
+            drawgraph(emptygraph,"#viz3");      
+        }
+        function calcDrawTable() {
+            if(document.getElementById("checkdraw").checked){
+            calcFinalGraphs();
+            reloadScriptFunction();
+            displayTables();
+            } else {
+            calcFinalGraphs();
+            displayTables();
+            }
+        
+        }
+        function clearAll(){
+            document.getElementById("inputfieldSpecies").value=0;
+            document.getElementById("inputfieldLinkNum").value=0;
+            calcDrawTable();
+            clearExample();
+        }
+        function reorder(){
+            function calcPos(graph){
+                var radius=150;
+                var anglecoeff=2* Math.PI /(graph.nodes.length);
+                for(i=0;i<graph.nodes.length;i++) {
+                    graph.nodes[i].fx=radius*(Math.cos(i*anglecoeff)) +width/2;
+                    graph.nodes[i].fy=radius*(Math.sin(i*anglecoeff)) +height/2;
+                }    
+                graph.nodes[0].isFirst=true;   
+            }
+            calcPos(graph1);
+            calcPos(graph2);
+            calcPos(graph3);
+
+            reloadScriptFunction();
+        }
+    </script>
+    <script src='drawGraphs.js'></script>
+    <script src='calcGraphStatistical.js'></script>
+</html>
