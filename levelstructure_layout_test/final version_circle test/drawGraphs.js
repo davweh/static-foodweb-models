@@ -37,8 +37,8 @@ function drawgraph(graph,svgid){
     var adjlist = [];
 
     graph.links.forEach(function(d) {
-        adjlist[d.source.index + "-" + d.target.index] = true;
-        adjlist[d.target.index + "-" + d.source.index] = true;
+      // adjlist[d.source.index + "-" + d.target.index] = true;
+      adjlist[d.target.index + "-" + d.source.index] = true;
     });
 
     function neigh(a, b) {
@@ -136,7 +136,7 @@ function drawgraph(graph,svgid){
         });
 
         link.style("opacity", function(o) {
-            return o.source.index == index || o.target.index == index ? 1 : 0.1;
+            return /*o.source.index == index || */ o.target.index == index ? 1 : 0.1;
         });
 
     }
@@ -225,11 +225,11 @@ function drawgraph(graph,svgid){
         d.fy = null;
         }
     }
-    d3.select("#layoutTest").on("click", function(d) {
-        graph.nodes[1].fx = 20;
-        graph.nodes[1].fy = 30;
-        graphLayout.alpha(0.01).restart();
-      })
+    // d3.select("#layoutTest").on("click", function(d) {
+    //     graph.nodes[1].fx = 20;
+    //     graph.nodes[1].fy = 30;
+    //     graphLayout.alpha(0.01).restart();
+    //   })
 }
 
 drawgraph(graph1,"#viz1");
