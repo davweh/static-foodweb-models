@@ -68,20 +68,26 @@ function drawgraph(graph,svgid,type){
 
 
     if(type=="sort"){
-        var node = container.append("g").attr("class", "nodes")
-        .selectAll("g")
-        .data(graph.nodes)
-        .enter()
-        .append("circle")
-        .attr("r", 8)
-        .attr("stroke", function(d){if(d.isFirst) return "#000000";})
-        .attr("stroke-width", function(d){if(d.isFirst) return "2px";})
-        .attr("fill",function(d){
-         if (d.group==="top"){ return "#990000";} //red
-         if (d.group==="basal"){ return "#245af6";} //blue
-         if (d.group==="intermediate"){ return "#009900";}//green
-         if (d.group==="notConnected"){ return "#000000";}//black
-         });
+        var node = container.selectAll(".node")
+            .data(graph.nodes)
+            .enter()
+            .append("g").attr("class", "nodes");
+        node.append("circle")
+            .attr("r", 8)
+            // .attr("stroke", function(d){if(d.isFirst) return "#000000";})
+            // .attr("stroke-width", function(d){if(d.isFirst) return "2px";})
+            .attr("fill",function(d){
+            if (d.group==="top"){ return "#990000";} //red
+            if (d.group==="basal"){ return "#245af6";} //blue
+            if (d.group==="intermediate"){ return "#009900";}//green
+            if (d.group==="notConnected"){ return "#000000";}//black
+            });
+         node.append("text")
+             .attr("dx",12)
+             .attr("dy",2)
+             .text(function(d){ if(d.isFirst) return d.id.charAt(1);});
+        
+
     } else{
     var node = container.append("g").attr("class", "nodes")
         .selectAll("g")

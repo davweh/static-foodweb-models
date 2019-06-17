@@ -38,6 +38,10 @@
         style="position: absolute; left:1100px; top:380px;" >
             <label>Sort</label>
         </button>
+        <button type="button" class="button" id="normalorder" onclick="normalorder()"
+        style="position: absolute; left:1100px; top:440px;" >
+            <label>Unsort</label>
+        </button>
         <svg id='viz1' class="svgframes" ></svg>
         <svg id='viz2' class="svgframes" ></svg>
         <svg id='viz3' class="svgframes" ></svg>
@@ -78,7 +82,7 @@
                 class="inputFields" style="left:60px" size="2"><br>
                 Links: <input type="text" name="linkNum" id="inputfieldLinkNum" value="0"
                 class="inputFields" style="left:78px" size="2"><br>
-                Connec. error: <input type="text" name="connectionError" id="inputconnErr" value="0.05"
+                Connec. error: <input type="text" name="connectionError" id="inputconnErr" value="0.001"
                 class="inputFields" style="left:10px" size="2"><br>
         </form>
         <button type="button" class="button" id="submitButton" onclick="calcDrawTable()">
@@ -273,13 +277,28 @@
                 }    
                 graph.nodes[0].isFirst=true;  
                 graph.nodes[1].isFirst=true;   
-                graph.nodes[2].isFirst=true;  
             }
             calcPos(graph1);
             calcPos(graph2);
             calcPos(graph3);
 
             reloadScriptFunction("sort");
+        }
+        function normalorder(){
+            function delPos(graph){
+                for(i=0;i<graph.nodes.length;i++) {
+                    graph.nodes[i].fx=null;
+                    graph.nodes[i].fy=null;
+                }    
+                graph.nodes[0].isFirst=false;  
+                graph.nodes[1].isFirst=false;   
+            }
+            delPos(graph1);
+            delPos(graph2);
+            delPos(graph3);
+
+            reloadScriptFunction("normal");
+
         }
     </script>
     <script src='drawGraphs.js'></script>
