@@ -1,18 +1,26 @@
 <html>
     <meta charset="UTF-8"> 
     <head>
+<!--====================================style===================================================================================-->
         <link rel="stylesheet" href="style.css">
     </head>
 
 
     <body class="body">
-        <!--=====================body==========================-->
+<!--====================================body===================================================================================-->
+
+
+    <!-- title -->
 
         <title>Struktur von Nahrungsnetzen</title>
         <h1 style="font-size:30px; font-weight: bold;">Statische Modelle von Nahrungsnetzen</h1> von David Huber
         <hr style="margin-right:auto "/>
         <br></br>
-    <!-- svg_windows -->
+
+
+
+    <!-- svg_windows, labels and buttons -->
+
         <label class="svglabel" style="left:20px">Zufälliges Netzwerk</label>
         <label class="svglabel" style="left:375px">Kaskadenmodell</label>
         <label class="svglabel" style="left:740px">Nischenmodell</label>
@@ -26,16 +34,25 @@
         style="position: absolute; left:1100px; top:320px;" >
             <label>Clear Windows</label>
         </button>
+        <button type="button" class="button" id="reorder" onclick="reorder()"
+        style="position: absolute; left:1100px; top:380px;" >
+            <label>Sort</label>
+        </button>
         <svg id='viz1' class="svgframes" ></svg>
         <svg id='viz2' class="svgframes" ></svg>
         <svg id='viz3' class="svgframes" ></svg>
-    <!-- buttons and stuff -->
-    <br></br>
+        <br></br>
+
+
+
+    <!-- buttons, checkboxes and inputfields -->
+
         <label class="checkBox"><input type="checkbox" id="checkdraw" checked="true" />Draw</label>
-        <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction();"/>Focus</label>
-        <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcFinalGraphs();reloadScriptFunction();displayTables();"/>Connected</label>
+        <label class="checkBox"><input type="checkbox" id="check" onclick="reloadScriptFunction('normal');"/>Focus</label>
+        <label class="checkBox"><input type="checkbox" id="checkConnected" onclick="calcDrawTable()"/>Connected</label>
         
-        
+        <!-- example buttons -->
+
         <button type="button" class="button" id="SkipwithPond" onclick="examplebuttonFkt('Skipwith Pond' ,25,198,0.04,0.92,0.04);"
         style="position: relative; left: 50px;">
             <label>Skipwith Pond</label>
@@ -54,6 +71,8 @@
         </button>
 
 
+        <!-- inputfields -->
+
         <form action="/action_page.php">
                 Spezies: <input type="text" name="speciesNum" id="inputfieldSpecies" value="0"
                 class="inputFields" style="left:60px" size="2"><br>
@@ -69,6 +88,9 @@
             <label>Clear All</label>
         </button>
 
+
+        <!-- tables -->
+        
         <div id="tableDiv" style="position: absolute; left: 500px; top: 650px; height: 300; width: 1000px" >
             <div style="float: left;">
                 <table class="table" id="randomNetWorkTable">
@@ -170,11 +192,9 @@
                         <td class="tableEntries" id="nichebasalPercentage">0</td>
                     </tr>
                 </table> 
-                <!-- <table class="table" id="exampleTableEnvironment" style="left:100px"></table> -->
             </div>
             <div id="exampleTableEnvironment"> 
             </div>
-            <!--absolute; left:1150px; top:620px;"> -->
         </div>
 
     <br>
@@ -187,22 +207,15 @@
     <button type="button" class="button" id="startCalcStat" style="position: relative; top:-65px; left:280px "  onclick="calcMultipleTimes()">
         <label>Start</label>
     </button>
-    </body>
-
-   <!-- <label class="tableLabel" style="left: 1000px">test</label> 
-            position: absolute;
-            left: 400px;
-            top: 630px; 
 
 
--->
-
-    <!--=====================scripts==========================-->
-    <!-- <script src='https://d3js.org/d3.v5.min.js'></script> -->
+<!--====================================scripts===================================================================================-->
+    <!-- <script src='https://d3js.org/d3.v5.min.js'></script>  -->  <!-- for online resource uncomment  -->
     <script src='d3.v5.min.js'></script>
     <script src='calcGraphs.js'></script>
     <script src='calcProperties.js'></script>
     <script>
+        // functions for buttons and checkboxes
         function reloadsvg(id) {
             var bodyparent= document.body; 
             oldsvg=document.getElementById(id);
@@ -212,13 +225,14 @@
             bodyparent.replaceChild(newsvg,oldsvg);
 
         }
-        function reloadScriptFunction() {
+        function reloadScriptFunction(type) {
+            if(document.getElementById("checkdraw").checked){
             reloadsvg("viz1");
             reloadsvg("viz2");
             reloadsvg("viz3");
-            drawgraph(graph1,"#viz1");
-            drawgraph(graph2,"#viz2");
-            drawgraph(graph3,"#viz3");
+            drawgraph(graph1,"#viz1",type);
+            drawgraph(graph2,"#viz2",type);
+            drawgraph(graph3,"#viz3",type);}
         }
         function emptyWindows() {
             var emptygraph={
@@ -228,14 +242,14 @@
             reloadsvg("viz1");
             reloadsvg("viz2");
             reloadsvg("viz3");      
-            drawgraph(emptygraph,"#viz1");
-            drawgraph(emptygraph,"#viz2");
-            drawgraph(emptygraph,"#viz3");      
+            drawgraph(emptygraph,"#viz1","normal");
+            drawgraph(emptygraph,"#viz2","normal");
+            drawgraph(emptygraph,"#viz3","normal");      
         }
         function calcDrawTable() {
             if(document.getElementById("checkdraw").checked){
             calcFinalGraphs();
-            reloadScriptFunction();
+            reloadScriptFunction("normal");
             displayTables();
             } else {
             calcFinalGraphs();
@@ -248,6 +262,24 @@
             document.getElementById("inputfieldLinkNum").value=0;
             calcDrawTable();
             clearExample();
+        }
+        function reorder(){
+            function calcPos(graph){
+                var radius=150;
+                var anglecoeff=2* Math.PI /(graph.nodes.length);
+                for(i=0;i<graph.nodes.length;i++) {
+                    graph.nodes[i].fx=radius*(Math.cos(i*anglecoeff)) +width/2;
+                    graph.nodes[i].fy=radius*(Math.sin(i*anglecoeff)) +height/2;
+                }    
+                graph.nodes[0].isFirst=true;  
+                graph.nodes[1].isFirst=true;   
+                graph.nodes[2].isFirst=true;  
+            }
+            calcPos(graph1);
+            calcPos(graph2);
+            calcPos(graph3);
+
+            reloadScriptFunction("sort");
         }
     </script>
     <script src='drawGraphs.js'></script>

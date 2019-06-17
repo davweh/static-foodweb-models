@@ -38,7 +38,7 @@ function calcMultipleTimes(){
         return [round(mean,2),round(Math.sqrt(retsum/(list.length-1)),4)];
     }
 
-//console.log(getMeanStdDev([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]));
+
     for(var i=0;i<times;i++){
         calcFinalGraphs();
         tempprop1=getAllProp(graph1);
@@ -56,9 +56,6 @@ function calcMultipleTimes(){
         randomMeanSTD[n]=getMeanStdDev(randomVals[n]);
         cascadeMeanSTD[n]=getMeanStdDev(cascadeVals[n]);
         nisheMeanSTD[n]=getMeanStdDev(nisheVals[n]);
-        // console.log(randomMeanSTD[n]);
-        // console.log(cascadeMeanSTD[n]);
-        // console.log(nisheMeanSTD[n]);
     }
 
 
