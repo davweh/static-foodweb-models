@@ -64,7 +64,7 @@ function examplebuttonFkt(name,s,l,t,i,b){
     var child=tableDiv.childNodes;
     var tableelem=document.createElement("table");
      tableelem.setAttribute("class","table");
-     tableelem.setAttribute("style","left:100px;")
+     tableelem.setAttribute("style","left:100px;");
      tableelem.id="tableId";
 
     var labelrow=document.createElement("tr");
