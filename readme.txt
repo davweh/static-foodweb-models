@@ -33,8 +33,12 @@ Zur veranschaulichung der Modelle gibt es noch die Möglichkeit, die Knoten nach
 Durch anzeigen der Fress-Beziehung wird ersichtlich, wie die Modelle im groben funktionieren.
 (Detailliertere Beschreibung der einzelnen Buttons und Inputfelder siehe unten)
 
+
+
 D3.js Version 5 ist eine JavaScript-Bibliothek zur Daten-Visualisierung. Wird hier zur Graphendarstellung benutzt. 
               Insbesondere die Kraftsimulation, die für die Animation der Graphen sorgt.
+
+              siehe: https://github.com/d3/d3,  https://en.wikipedia.org/wiki/D3.js
 
 
 ==========================================================
@@ -148,6 +152,7 @@ To show how the models work, it is possible to sort the nodes by niche value (se
 
  D3.js version 5 is a JavaScript library for data visualization. It is used here to show the graph, especially for the force simulation that animates the Graphs.
 
+        see: https://github.com/d3/d3,  https://en.wikipedia.org/wiki/D3.js
 ==========================================================
 Requirements
 ==========================================================
