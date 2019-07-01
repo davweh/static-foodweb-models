@@ -111,10 +111,7 @@ style.css:  CSS file, enthält style optionen für Buttons, Tabellen,...
 
 style.css und networks.js sind nur in minifiziertier Version enthalten.
 (unnötige Leerzeichen und ähnliches werden entfernt, Variablennamen werden verkürzt, etc.)
-
-Das verbessert in der Regel die Laufzeit/Dynamik einer Seite, aber erschwert die Lesbarkeit des Codes.
-Entsprechend ist es schwer, den Code in dieser Form zu bearbeiten.
-In dem Fall, dass jemand den Code in voller Länge haben möchte oder wenn es Fragen zum Code gibt, einfach bei mir melden.
+Für den ganzen Code, siehe Ordner unminified code.
 
 David 
 
@@ -218,10 +215,8 @@ style.css:  CSS file, contains style options for buttons, tables,...
 
 style.css and networks.js are only included as minified versions
 (unnecessary spaces and simliar stuff is removed, variable names are shorted, etc.)
+For the full code, see the folder unminified code
 
-In general this improves the runtime/dynamics of a page, but impedes the legibility of the code.
-This makes it harder to work on the code in this form.
-In the case that someone wants to have the code in full length or has questions regarding the code, just write me.
 
 David
 
