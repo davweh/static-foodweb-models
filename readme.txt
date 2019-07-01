@@ -1,5 +1,5 @@
 Author: David Huber
-Date: 28.Juni, 2019
+Date: 28 June, 2019
 
 
 ToDo:  -improve layout
