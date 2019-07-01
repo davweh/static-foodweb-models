@@ -1,5 +1,21 @@
 Author: David Huber
-Datum: 28.Juni, 2019
+Date: 28.Juni, 2019
+
+
+ToDo:  -improve layout
+
+
+
+
+
+
+
+english version below!
+_________________________________________________________________________________________________________________________________________________________
+
+
+Deutsch:
+
 
 ==========================================================
 Einführung
@@ -10,7 +26,7 @@ Webpage zur Visualisierung von drei statischen Modellen aus der Nahrungsnetzfors
 Zufälliges Netzwerk, Kaskadenmodell, Nischenmodell.
 
 Netzwerke können mit gewünschter Knoten- und Verknüfungsanzahl nach den drei oben genannten Modellen erzeugt werden. 
-Zusätzlich sind drei Beispiele implementiert: Skipwith Pond, Bridge Brool Lake, Little Rock Lake. Anhand dieser können die drei Modelle getestet werden.
+Zusätzlich sind drei Beispiele implementiert: Skipwith Pond, Bridge Brook Lake, Little Rock Lake. Anhand dieser können die drei Modelle getestet werden.
 Neben der einfachen Rechnung, gibt es noch die Möglichkeit, dass gewünschte Netzwerk beliebig oft rechnen zu lassen. Zum besseren Vergleichen
  werden dann Mittelwert und Standardabweichung angezeigt.
 Zur veranschaulichung der Modelle gibt es noch die Möglichkeit, die Knoten nach Nischenwert(siehe Modellbeschreibung) zu sortieren.
@@ -96,4 +112,111 @@ Entsprechend ist es schwer, den Code in dieser Form zu bearbeiten.
 In dem Fall, dass jemand den Code in voller Länge haben möchte oder wenn es Fragen zum Code gibt, einfach bei mir melden.
 
 David 
+
+
+
+
+
+
+
+
+
+
+
+
+_________________________________________________________________________________________________________________________________________________________
+
+
+English:
+
+==========================================================
+Introduction
+==========================================================
+
+Structure of food webs
+Webpage to visualize three static models from food web research: 
+random network, cascade model, niche model.
+
+Food webs can be generated with arbitrary node and link number using the three models mentioned above.
+In addition, three examples are implemented: Skipwith Pond, Bridge Brook Lake, Little Rock Lake. With these the three models can be tested.
+Beside the "one-time" calculation,  another possibility is, to calculate the graphs multiple times. For better comparison the tables show 
+mean value and standard deviation.
+To show how the models work, it is possible to sort the nodes by niche value (see Model description). Displaying the feeding interactions shows how the models work.
+(For more detailed description of buttons and inputfields see below)
+
+
+==========================================================
+Requirements
+==========================================================
+
+To run this page only a browser is needed. An internet connection is not necessary.
+
+Tests done with Firefox 67.0.4 in Ubuntu 18.04 and Windows 10.
+It is recommended to use firefox, since the layout can vary for different browsers. 
+
+
+==========================================================
+Usage
+==========================================================
+
+To start it, just run main.html in a browser.
+The three windows show the models.
+Explanations:
+Button, Inputfields:
+
+    Spezies: Input of wanted node number
+    Links: Input of wanted link number
+    Connec. error: Allowed interval for the connectance in the niche model
+    Reload: Loads with entered node and link number the graphs 
+    Clear All: resets everything
+
+
+    Clear Windows: clears windows
+    Sort: sorts the graphs by nishe value (in the random network by id in code) and numbers the first two nodes with the smallest nishe value by  1 and 2.
+    Unsort: reversess the sorting
+
+
+    Skipwith Pond, Bridge Brook Lake, Little Rock Lake: loads the models with the corresponding node and link number and opens the table with empirical data.
+    Clear Table: deletes the table with empirical data
+
+    Calc. multiple times: input declares, how often the graphs should be calculated (not shown) with the corresponding constellation.
+                          Afterwards mean value and standard deviation are calculated and shown in the tables in the following form:
+                          "mean value"|"standard deviation"
+    Start: starts calculation after entering the number in "Calc. multiple times"
+
+Checkboxes:
+
+    Draw: If box is checked, the graphs are shown
+
+    Focus: If box is checked, moving the mouse over a node results in all nodes becoming grey except the ones that are consumed by said node.
+
+    Connected: Makes sure, that now single unconnected nodes appear        
+
+
+==========================================================
+Information on code and further usage
+==========================================================
+
+The code may be used, adjusted and extended.
+
+main.html:  Well, the html document.
+
+networks.js: JavaScript file, contains all functions to calculate and show the graphs
+
+d3.v5.min.js: D3.js version 5, JavaScript library for data visualization. Is used here to show the graph, especially for the force simulation that animates the Graphs 
+
+style.css:  CSS file, contains style options for buttons, tables,...
+
+
+
+style.css and networks.js are only included as minified versions
+(unnecessary spaces and simliar stuff is removed, variable names are shorted, etc.)
+
+In general this improves the runtime/dynamics of a page, but impedes the legibility of the code.
+This makes it harder to work on the code in this form.
+In the case that someone wants to have the code in full length or has questions regarding the code, just write me.
+
+David
+
+
 
