@@ -33,12 +33,15 @@ Zur veranschaulichung der Modelle gibt es noch die Möglichkeit, die Knoten nach
 Durch anzeigen der Fress-Beziehung wird ersichtlich, wie die Modelle im groben funktionieren.
 (Detailliertere Beschreibung der einzelnen Buttons und Inputfelder siehe unten)
 
+D3.js Version 5 ist eine JavaScript-Bibliothek zur Daten-Visualisierung. Wird hier zur Graphendarstellung benutzt. 
+              Insbesondere die Kraftsimulation, die für die Animation der Graphen sorgt.
+
 
 ==========================================================
 Anforderungen
 ==========================================================
 
-Zum Ausführen wird lediglich ein Browser gebraucht. Auch eine Internetverbindung ist nicht notwendig.
+Zum Ausführen wird lediglich ein Browser gebraucht.
 
 Getestet wurde mit Firefox 67.0.4 unter Ubuntu 18.04 und Windows 10.
 Es wird empfohlen, Firefox zu benutzen, je nach Browser kann das Layout stark variieren.
@@ -97,11 +100,9 @@ main.html:   HTML-Seite halt
 
 networks.js: JavaScript file, enthält alle Funktionen zur Berechnung und Darstellung der Graphen
 
-d3.v5.min.js: D3.js Version 5, JavaScript-Bibliothek zur Daten-Visualisierung. Wird hier zur Graphendarstellung benutzt. 
-              Insbesondere die Kraftsimulation, die für die Animation der Graphen sorgt.
+d3.v5.min.js: D§.js Version 5, JavaScript-Bibliothek zur Daten-Visualisierung.
 
 style.css:  CSS file, enthält style optionen für Buttons, Tabellen,...
-
 
 
 style.css und networks.js sind nur in minifiziertier Version enthalten.
@@ -145,11 +146,13 @@ To show how the models work, it is possible to sort the nodes by niche value (se
 (For more detailed description of buttons and inputfields see below)
 
 
+ D3.js version 5 is a JavaScript library for data visualization. It is used here to show the graph, especially for the force simulation that animates the Graphs.
+
 ==========================================================
 Requirements
 ==========================================================
 
-To run this page only a browser is needed. An internet connection is not necessary.
+To run this page only a browser is needed.
 
 Tests done with Firefox 67.0.4 in Ubuntu 18.04 and Windows 10.
 It is recommended to use firefox, since the layout can vary for different browsers. 
@@ -203,10 +206,9 @@ main.html:  Well, the html document.
 
 networks.js: JavaScript file, contains all functions to calculate and show the graphs
 
-d3.v5.min.js: D3.js version 5, JavaScript library for data visualization. Is used here to show the graph, especially for the force simulation that animates the Graphs 
+d3.v5.min.js: D3.js version 5, JavaScript library for data visualization.
 
 style.css:  CSS file, contains style options for buttons, tables,...
-
 
 
 style.css and networks.js are only included as minified versions
